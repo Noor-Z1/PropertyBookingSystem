@@ -1,6 +1,9 @@
 
 
 public class BASIC {
+    public User users[];
+    public Property properties[];     // is this okay or should I add arrayList
+
     public static void main(String[] args){
 
 
@@ -15,8 +18,9 @@ public class BASIC {
     public void addProperty(){}
     public void deleteProperty(int id){}
     public void getPropertyDetails(int id){}
-    public void addBooking(int a, int b){}
-    public void getUserBooking(int id){}
+    public void addBooking(int userID, int propertyId){}
+    public void getUserBooking(int userId){}
+    public void getBookingCost(int userId, int propertyId){}
     public void listUsers(){}
     public void listProperties(){}
     public void exit(){}
