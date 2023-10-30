@@ -10,6 +10,41 @@ public class Booking {
 
     public Booking () {}
 
+    public Date getStartDate() {
+        return startDate;
+    }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
+
+    public float totalCost() {
+        return 0;
+    }
 
 }
