@@ -6,6 +6,14 @@ public class Property {
     private float pricePerDay;
 
 
+    public Property(int propertyId, int noBedRooms, int noRooms, String city, float pricePerDay) {
+        this.propertyId = propertyId;
+        this.noBedRooms = noBedRooms;
+        this.noRooms = noRooms;
+        this.city = city;
+        this.pricePerDay = pricePerDay;
+    }
+
     public String getCity() {
         return city;
     }
@@ -44,6 +52,10 @@ public class Property {
 
     public void setPropertyId(int propertyId) {
         this.propertyId = propertyId;
+    }
+
+    public String toString() {
+        return "Property [propertyId=" + propertyId + ", noBedRooms=" + noBedRooms + ", noRooms=" + noRooms + ", city=" + city + ", pricePerDay=" + pricePerDay + "]";
     }
 
 

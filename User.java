@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.ArrayList;
 
 public class User {
     private int userId;
@@ -6,6 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
 
+    private ArrayList<Booking> bookings;
 
     public User() { }
 
@@ -18,6 +20,7 @@ public class User {
         this.dateOfBirth = dob;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.bookings = new ArrayList<Booking>();
 
     }
 
@@ -51,6 +54,10 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String toString(){
+        return "User [userId=" + userId + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", lastName=" + lastName + "]";
     }
 
 
