@@ -8,7 +8,9 @@ public class Booking {
     private boolean isPaid;
     private Property property;
 
-    public Booking () {}
+    public Booking () {
+
+    }
 
     public Date getStartDate() {
         return startDate;
@@ -46,5 +48,10 @@ public class Booking {
     public float totalCost() {
         return 0;
     }
+
+    public String toString(){
+        return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", isPaid=" + isPaid + ", property=" + property + "]";
+    }
+
 
 }

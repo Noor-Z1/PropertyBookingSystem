@@ -9,10 +9,24 @@ public class User {
 
     private ArrayList<Booking> bookings;
 
-    public User() { }
+    public User() {
+
+    }
 
     public User(int ID){
+
         this.userId = ID;
+        this.bookings = new ArrayList<Booking>();
+
+    }
+    public User(int ID, Date dob, String firstName, String lastName, Booking booking){
+        this.userId = ID;
+        this.dateOfBirth = dob;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.bookings = new ArrayList<Booking>();
+        this.bookings.add(booking);
+
     }
 
     public User(int ID, Date dob, String firstName, String lastName){
@@ -56,6 +70,12 @@ public class User {
         this.lastName = lastName;
     }
 
+    public void addBooking(Booking booking){
+        this.bookings.add(booking);
+    }
+    public ArrayList<Booking> getBookings(){
+        return this.bookings;
+    }
     public String toString(){
         return "User [userId=" + userId + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", lastName=" + lastName + "]";
     }
