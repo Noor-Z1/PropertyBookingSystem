@@ -8,9 +8,25 @@ public class Booking {
     private boolean isPaid;
     private Property property;
 
-    public Booking () {
+   public Booking(){
 
-    }
+   }
+
+   public Booking(Date startDate, Date endDate, boolean isPaid, Property property){
+       this.startDate = startDate;
+       this.endDate = endDate;
+       this.isPaid = isPaid;
+       this.property = property;
+   }
+
+   public Booking(Date startDate, Date endDate, boolean isPaid){
+       this.startDate = startDate;
+       this.endDate = endDate;
+       this.isPaid = isPaid;
+       this.property = new Property();
+   }
+
+
 
     public Date getStartDate() {
         return startDate;

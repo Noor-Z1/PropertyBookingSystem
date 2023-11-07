@@ -4,14 +4,28 @@ public class Property {
     private int noRooms;
     private String city;
     private float pricePerDay;
+    private Host host;
 
 
+    public Property() {
+
+    }
     public Property(int propertyId, int noBedRooms, int noRooms, String city, float pricePerDay) {
         this.propertyId = propertyId;
         this.noBedRooms = noBedRooms;
         this.noRooms = noRooms;
         this.city = city;
         this.pricePerDay = pricePerDay;
+        this.host = new Host();
+    }
+
+    public Property(int propertyId, int noBedRooms, int noRooms, String city, float pricePerDay, Host host) {
+        this.propertyId = propertyId;
+        this.noBedRooms = noBedRooms;
+        this.noRooms = noRooms;
+        this.city = city;
+        this.pricePerDay = pricePerDay;
+        this.host = host;
     }
 
     public String getCity() {
@@ -52,6 +66,14 @@ public class Property {
 
     public void setPropertyId(int propertyId) {
         this.propertyId = propertyId;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
     }
 
     public String toString() {

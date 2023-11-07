@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 
 public class BASIC {
-    public ArrayList<User> users;
-    public ArrayList<Property> properties;
+    public static ArrayList<User> users;
+    public static ArrayList<Property> properties;
 
     public static void main(String[] args) {
 
@@ -313,6 +313,25 @@ public class BASIC {
         System.out.println("Goodbye!");
         exit();
     }
+
+
+}
+
+
+class PopulateData{
+
+    void populate(){
+
+        BASIC.users = new ArrayList<User>();
+        BASIC.properties = new ArrayList<Property>();
+
+
+
+
+    }
+
+
+
 
 
 }
