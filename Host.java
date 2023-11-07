@@ -8,6 +8,19 @@ public class Host {
     private Date registrationDate;
 
 
+    public Host() {
+
+    }
+    public Host(int hostID){
+
+    }
+    public Host(int hostID, String firsName, String lastName, Date registrationDate){
+        this.hostID = hostID;
+        this.firsName = firsName;
+        this.lastName = lastName;
+        this.registrationDate = registrationDate;
+    }
+
     public int getHostID() {
         return hostID;
     }
