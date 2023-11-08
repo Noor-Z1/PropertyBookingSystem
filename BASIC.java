@@ -1,8 +1,8 @@
 
+import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
 
 
 public class BASIC {
@@ -84,12 +84,25 @@ public class BASIC {
         System.out.println("12. Exit");
 
     }
+
+
+    /**
+     * This function is used to add a user object to the static users list
+     * of the BASIC class
+     */
     public static void addUser(){
+
+        int id;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("----ADD USER----");
-        System.out.println("Enter User ID: ");
-        int id = sc.nextInt();
+
+        // check if user already exists
+        do {
+            System.out.println("Enter User ID: ");
+            id = sc.nextInt();
+        }while(checkUserExists(id));
+
         users.add(new User(id));
         System.out.println("User added successfully");
         System.out.println("Would you like to add details for the user?");
@@ -101,12 +114,20 @@ public class BASIC {
             String lastName = sc.next();
             System.out.println("Enter dob (dd/mm/yyyy: ");
             String dob = sc.next();
+
             // parse dob to a Date format
+            Date a = new Date();
 
-
+            try {
+                a = new SimpleDateFormat("dd/mm/yyyy").parse(dob);
+            } catch (ParseException e) {
+                System.out.println("Invalid date format");
+                System.out.println("Try again");
+            }
             //access the user object and add the details
             users.get(users.size() - 1).setFirstName(firstName);
             users.get(users.size() - 1).setLastName(lastName);
+            users.get(users.size() - 1).setDateOfBirth(a);
 
         }
         else{
@@ -116,14 +137,34 @@ public class BASIC {
 
     }
 
-    public static void deleteUser(int id){
+    /**
+     *
+     * This is an auxiliary function used to check if a user exists with the id specified
+     * @param id
+     * @return true if user exists else false
+     *
+     */
+    private static boolean checkUserExists(int id) {
+        for (User user : users){
+            if (user.getUserId() == id){
+                return true;
+            }
+        }
+        return false;
+    }
 
-        System.out.println("----DELETE USER----");
+    /**
+     * This function is used to delete a user object from the static users list
+     * @return true if user exists else false
+     *
+     */
+    public static void deleteUser(int id){
         // first check if user exists
         // then find the index of the user with the specified id
-
         int i, originalSize;
         originalSize = users.size();
+
+        System.out.println("----DELETE USER----");
 
         for (i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == id){
@@ -158,12 +199,22 @@ public class BASIC {
 
     }
 
+    /**
+     * This function is used to add a property object to the static properties list
+     *
+     */
     public static void addProperty(){
 
-        System.out.println("----ADD PROPERTY----");
+        int id;
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter Property ID: ");
-        int id = sc.nextInt();
+        System.out.println("----ADD PROPERTY----");
+
+        //let's check if property already exists
+        do{
+            System.out.println("Enter Property ID: ");
+            id = sc.nextInt();
+
+        }while (checkPropertyExists(id));
         System.out.println("Enter Number of Bed Rooms: ");
         int noBedRooms = sc.nextInt();
         System.out.println("Enter Number of Rooms: ");
@@ -172,15 +223,57 @@ public class BASIC {
         String city = sc.next();
         System.out.println("Enter Price Per Day: ");
         float pricePerDay = sc.nextFloat();
-        properties.add(new Property(id, noBedRooms, noRooms, city, pricePerDay));
+
+
+        System.out.println("Please add Host details");
+        System.out.println("Enter User ID: ");
+        id = sc.nextInt();
+        System.out.println("Enter first name: ");
+        String firstName = sc.next();
+        System.out.println("Enter last name: ");
+        String lastName = sc.next();
+        System.out.println("Enter registration date (dd/mm/yyyy): ");
+        String regDate = sc.next();
+
+        // parse registration date to a Date format
+        Date a = new Date();
+        try {
+            a = new SimpleDateFormat("dd/mm/yyyy").parse(regDate);
+        }
+        catch (ParseException e){
+            System.out.println("Invalid date format");
+            System.out.println("Try again");
+        }
+        //access the property object and add the details
+        properties.add(new Property(id, noBedRooms, noRooms, city, pricePerDay, new Host(id, firstName, lastName, a)));
+        System.out.println("Property with its host added successfully");
 
     }
 
+    /**
+     * This is an auxiliary function used to check if a property already exists with the id specified
+     * @param id
+     * @return true if property exists else false
+     */
+    private static boolean checkPropertyExists(int id) {
+        for (Property property : properties){
+            if (property.getPropertyId() == id){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * This function is used to delete a property object from the static properties list
+     * @param propertyId
+     */
     public static void deleteProperty(int propertyId){
 
         int originalSize;
-        System.out.println("----DELETE PROPERTY----");
         originalSize = properties.size();
+        System.out.println("----DELETE PROPERTY----");
 
         for (int i = 0; i < properties.size(); i++) {
             if (properties.get(i).getPropertyId() == propertyId){
@@ -189,11 +282,17 @@ public class BASIC {
             }
         }
 
+        // if the size has not changed, property not found
         if (originalSize == properties.size()){
             System.out.println("Property not found");
         }
 
     }
+
+    /**
+     * This function is used to display the details of a property including its host
+     * @param propertyId
+     */
     public static void getPropertyDetails(int propertyId){
 
         int found = 0;
@@ -208,6 +307,7 @@ public class BASIC {
             System.out.println("This Property does not exist!");
         }
     }
+
     public static void addBooking(int userId, int propertyId){
 
         // first we check if the user exists
@@ -215,11 +315,12 @@ public class BASIC {
         // then we add the booking
 
         boolean flag = false;
-        int index = 0;
+        int uindex = 0, pindex = 0;
+        Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < users.size(); i++) {
            if (users.get(i).getUserId() == userId){
-               index = i;
+               uindex = i;
                flag = true;
            }
         }
@@ -228,8 +329,9 @@ public class BASIC {
         }
 
         flag = false;
-        for (Property property : properties) {
-            if (property.getPropertyId() == propertyId) {
+        for (int i = 0; i < properties.size(); i++) {
+            if (properties.get(i).getPropertyId() == propertyId) {
+                pindex = i;
                 flag = true;
                 break;
             }
@@ -237,10 +339,29 @@ public class BASIC {
         if (!flag){
             System.out.println("Property not found");
         }
+        else{
+            System.out.println("Please add booking details");
+            System.out.println("Enter start date (dd/mm/yyyy): ");
+            String startDate = sc.next();
+            System.out.println("Enter end date (dd/mm/yyyy): ");
+            String endDate = sc.next();
+            // parse dates to a Date format
+            Date a = new Date();
+            Date b = new Date();
+            try {
+                a = new SimpleDateFormat("dd/mm/yyyy").parse(startDate);
+                b = new SimpleDateFormat("dd/mm/yyyy").parse(endDate);
+            } catch (ParseException e) {
+                System.out.println("Invalid date format");
+                System.out.println("Try again");
+            }
 
-        if (flag){
-          users.get(index).addBooking(new Booking());
+            // we also need to check if the property is available for the given dates
+            users.get(uindex).addBooking(new Booking(a, b, properties.get(pindex)));
+
         }
+
+
         
 
     }
@@ -320,9 +441,9 @@ class PopulateData{
         p3.setHost( new Host(44, "Carolina", "Silva", new Date("17/8/2022")) );
 
 
-        Booking b1 = new Booking(new Date("4/06/2023"), new Date("01/07/2023"), true, p1);
-        Booking b2 = new Booking(new Date("9/08/2023"), new Date("01/09/2023"), false, p2);
-        Booking b3 = new Booking(new Date("14/10/2023"), new Date("01/11/2023"), true, p3);
+//        Booking b1 = new Booking(new Date("4/06/2023"), new Date("01/07/2023"), true, p1);
+//        Booking b2 = new Booking(new Date("9/08/2023"), new Date("01/09/2023"), false, p2);
+//        Booking b3 = new Booking(new Date("14/10/2023"), new Date("01/11/2023"), true, p3);
 
 
         // add users (custom)
@@ -331,18 +452,18 @@ class PopulateData{
         User u3 = new User(9239);
 
 
-        u1.setFirstName("Leena");
-        u1.setLastName("Smith");
-        u1.setDateOfBirth(new Date("12/7/2001"));
-        u1.addBooking(b1);
-        u2.setFirstName("Amber");
-        u2.setLastName("Jade");
-        u2.setDateOfBirth(new Date("4/2/1997"));
-        u2.addBooking(b2);
-        u3.setFirstName("Sarah");
-        u3.setLastName("Williams");
-        u3.setDateOfBirth(new Date("30/1/1999"));
-        u3.addBooking(b3);
+//        u1.setFirstName("Leena");
+//        u1.setLastName("Smith");
+//        u1.setDateOfBirth(new Date("12/7/2001"));
+//        u1.addBooking(b1);
+//        u2.setFirstName("Amber");
+//        u2.setLastName("Jade");
+//        u2.setDateOfBirth(new Date("4/2/1997"));
+//        u2.addBooking(b2);
+//        u3.setFirstName("Sarah");
+//        u3.setLastName("Williams");
+//        u3.setDateOfBirth(new Date("30/1/1999"));
+//        u3.addBooking(b3);
 
 
         BASIC.users = new ArrayList<User>();

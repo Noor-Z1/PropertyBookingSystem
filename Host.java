@@ -2,11 +2,10 @@ import java.util.Date;
 
 public class Host {
 
-    private int hostID;
+    private int hostId;
     private String firsName;
     private String lastName;
     private Date registrationDate;
-
 
     public Host() {
 
@@ -14,19 +13,19 @@ public class Host {
     public Host(int hostID){
 
     }
-    public Host(int hostID, String firsName, String lastName, Date registrationDate){
-        this.hostID = hostID;
+    public Host(int hostId, String firsName, String lastName, Date registrationDate){
+        this.hostId = hostId;
         this.firsName = firsName;
         this.lastName = lastName;
         this.registrationDate = registrationDate;
     }
 
     public int getHostID() {
-        return hostID;
+        return hostId;
     }
 
-    public void setHostID(int hostID) {
-        this.hostID = hostID;
+    public void setHostID(int hostId) {
+        this.hostId = hostId;
     }
 
     public String getFirsName() {

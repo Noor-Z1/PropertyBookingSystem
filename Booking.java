@@ -1,6 +1,9 @@
-
 import java.util.Date;
 
+/**
+ * @author Noor Ul Zain
+ * @version 1.0
+ */
 public class Booking {
 
     private Date startDate;
@@ -12,21 +15,19 @@ public class Booking {
 
    }
 
-   public Booking(Date startDate, Date endDate, boolean isPaid, Property property){
+   public Booking(Date startDate, Date endDate, Property property){
        this.startDate = startDate;
        this.endDate = endDate;
-       this.isPaid = isPaid;
        this.property = property;
+       this.property.setAvailable(false);
    }
 
    public Booking(Date startDate, Date endDate, boolean isPaid){
        this.startDate = startDate;
        this.endDate = endDate;
        this.isPaid = isPaid;
-       this.property = new Property();
+       this.property = new Property();  // initializing the property but not assigning it yet
    }
-
-
 
     public Date getStartDate() {
         return startDate;
@@ -58,12 +59,25 @@ public class Booking {
 
     public void setProperty(Property property) {
         this.property = property;
+        this.property.setAvailable(false);
     }
 
 
+    // complete this
     public float totalCost() {
+
+        // first find the cost per day
+        // then multiply the number of days by the cost per day
+
+
+
         return 0;
     }
+
+    /**
+     * This function overrides the toString() function of the object class
+     * @return the string representation of the Booking object
+     */
 
     public String toString(){
         return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", isPaid=" + isPaid + ", property=" + property + "]";

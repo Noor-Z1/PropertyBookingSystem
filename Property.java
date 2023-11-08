@@ -1,9 +1,11 @@
+
 public class Property {
     private int propertyId;
     private int noBedRooms;
     private int noRooms;
     private String city;
     private float pricePerDay;
+    private boolean isAvailable;
     private Host host;
 
 
@@ -76,8 +78,19 @@ public class Property {
         this.host = host;
     }
 
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     public String toString() {
-        return "Property [propertyId=" + propertyId + ", noBedRooms=" + noBedRooms + ", noRooms=" + noRooms + ", city=" + city + ", pricePerDay=" + pricePerDay + "]";
+        return "Property [propertyId=" + propertyId + ", noBedRooms=" +
+                noBedRooms + ", noRooms=" + noRooms + "," +
+                " city=" + city + ", pricePerDay=" + pricePerDay + ", The host details are: "
+                + host.toString() + "]";
     }
 
 
