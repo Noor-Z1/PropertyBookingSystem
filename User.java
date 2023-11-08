@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 
 
-public class User {
+/**
+ *
+ * @author Noor Ul Zain
+ * @version 1.0
+ *
+ */
+class User {
 
-    /**
-     *
-     * @author Noor Ul Zain
-     * @version 1.0
-     *
-     */
 
     private int userId;
     private Date dateOfBirth;

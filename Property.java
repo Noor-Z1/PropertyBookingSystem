@@ -1,11 +1,14 @@
 
-public class Property {
+/**
+ * @author Noor Ul Zain
+ * @version 1.0
+ */
+class Property {
     private int propertyId;
     private int noBedRooms;
     private int noRooms;
     private String city;
     private float pricePerDay;
-    private boolean isAvailable;
     private Host host;
 
 
@@ -78,13 +81,6 @@ public class Property {
         this.host = host;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
 
     public String toString() {
         return "Property [propertyId=" + propertyId + ", noBedRooms=" +

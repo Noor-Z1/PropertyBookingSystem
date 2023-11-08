@@ -4,7 +4,7 @@ import java.util.Date;
  * @author Noor Ul Zain
  * @version 1.0
  */
-public class Booking {
+class Booking {
 
     private Date startDate;
     private Date endDate;
@@ -19,7 +19,6 @@ public class Booking {
        this.startDate = startDate;
        this.endDate = endDate;
        this.property = property;
-       this.property.setAvailable(false);
    }
 
    public Booking(Date startDate, Date endDate, boolean isPaid){
@@ -59,19 +58,23 @@ public class Booking {
 
     public void setProperty(Property property) {
         this.property = property;
-        this.property.setAvailable(false);
+
     }
 
 
-    // complete this
+    /**
+     * This function computes the total cost of the particular booking
+     * @return the total cost of the booking
+     */
     public float totalCost() {
 
-        // first find the cost per day
+        // first find the number of days
         // then multiply the number of days by the cost per day
+        float a = endDate.getTime() - startDate.getTime();
+        float days = a / (1000 * 60 * 60 * 24);
 
+        return days * property.getPricePerDay();
 
-
-        return 0;
     }
 
     /**

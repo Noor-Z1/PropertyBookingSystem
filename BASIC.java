@@ -1,10 +1,13 @@
-
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 
+/**
+ * @author Noor Ul Zain
+ * @version 1.0
+ */
 public class BASIC {
     public static ArrayList<User> users;
     public static ArrayList<Property> properties;
@@ -138,11 +141,9 @@ public class BASIC {
     }
 
     /**
-     *
      * This is an auxiliary function used to check if a user exists with the id specified
      * @param id
      * @return true if user exists else false
-     *
      */
     private static boolean checkUserExists(int id) {
         for (User user : users){
@@ -156,7 +157,6 @@ public class BASIC {
     /**
      * This function is used to delete a user object from the static users list
      * @return true if user exists else false
-     *
      */
     public static void deleteUser(int id){
         // first check if user exists
@@ -179,6 +179,10 @@ public class BASIC {
         }
     }
 
+    /**
+     *
+     * @param userId
+     */
     public static void getUserDetails(int userId){
 
         int i, found = 0;
@@ -268,6 +272,7 @@ public class BASIC {
     /**
      * This function is used to delete a property object from the static properties list
      * @param propertyId
+     * @return void
      */
     public static void deleteProperty(int propertyId){
 
@@ -292,6 +297,7 @@ public class BASIC {
     /**
      * This function is used to display the details of a property including its host
      * @param propertyId
+     * @return void
      */
     public static void getPropertyDetails(int propertyId){
 
@@ -308,6 +314,13 @@ public class BASIC {
         }
     }
 
+
+    /**
+     * This function is used to add a booking object to the bookings list of a particular user
+     * @param userId
+     * @param propertyId
+     * @return void
+     */
     public static void addBooking(int userId, int propertyId){
 
         // first we check if the user exists
@@ -356,27 +369,35 @@ public class BASIC {
                 System.out.println("Try again");
             }
 
-            // we also need to check if the property is available for the given dates
+            // we also need to check if the property is available for the given dates??
+
+            // access the user object and add the booking with the specified dates and property
             users.get(uindex).addBooking(new Booking(a, b, properties.get(pindex)));
 
         }
 
-
-        
-
     }
 
+    /**
+     * This function is used to display the bookings of a user
+     * If the user does not exist or has no bookings, an appropriate message will be displayed
+     * @param userId
+     * @return void
+     */
     public static void getUserBooking(int userId){
+
+        boolean found = false;
 
         User u = new User();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == userId){
+                found = true;
                 u = users.get(i);
                 break;
             }
         }
 
-        if (u == null){
+        if (!found){
             System.out.println("User not found");
         }
         else if(u.getBookings().size() == 0){
@@ -390,10 +411,13 @@ public class BASIC {
 
     }
 
+    /**
+     * @param userId
+     * @param propertyId
+     */
     public static void getBookingCost(int userId, int propertyId){
         // first identify the booking object for a given user for a given property
         // re check this
-
         for (User user : users) {
             if (user.getUserId() == userId) {
                 for (int j = 0; j < user.getBookings().size(); j++) {
@@ -405,79 +429,32 @@ public class BASIC {
         }
     }
 
-
+    /**
+     *
+     */
     public static void listUsers(){
         for (User user : users) {
             System.out.println(user.toString());
         }
     }
+
+    /**
+     *
+     */
     public static void listProperties(){
         for (Property property : properties) {
             System.out.println(property.toString());
         }
     }
-    public static void exit(){
 
+    /**
+     *
+     */
+    public static void exit(){
         System.out.println("Exiting...");
         System.out.println("Goodbye!");
         exit();
     }
 
-
 }
 
-
-class PopulateData{
-
-    void populate(){
-
-
-        Property p1 = new Property(1, 3, 3, "Barcelona", 200);
-        Property p2 = new Property(2, 2, 2, "Madrid", 150);
-        Property p3 = new Property(3, 4, 4, "Valencia", 300);
-
-        p1.setHost( new Host(22, "Marcus", "Weiser", new Date("01/2/2017")) );
-        p2.setHost( new Host(33, "John", "Karis", new Date("22/5/2018")) );
-        p3.setHost( new Host(44, "Carolina", "Silva", new Date("17/8/2022")) );
-
-
-//        Booking b1 = new Booking(new Date("4/06/2023"), new Date("01/07/2023"), true, p1);
-//        Booking b2 = new Booking(new Date("9/08/2023"), new Date("01/09/2023"), false, p2);
-//        Booking b3 = new Booking(new Date("14/10/2023"), new Date("01/11/2023"), true, p3);
-
-
-        // add users (custom)
-        User u1 = new User(2243);
-        User u2 = new User(3450);
-        User u3 = new User(9239);
-
-
-//        u1.setFirstName("Leena");
-//        u1.setLastName("Smith");
-//        u1.setDateOfBirth(new Date("12/7/2001"));
-//        u1.addBooking(b1);
-//        u2.setFirstName("Amber");
-//        u2.setLastName("Jade");
-//        u2.setDateOfBirth(new Date("4/2/1997"));
-//        u2.addBooking(b2);
-//        u3.setFirstName("Sarah");
-//        u3.setLastName("Williams");
-//        u3.setDateOfBirth(new Date("30/1/1999"));
-//        u3.addBooking(b3);
-
-
-        BASIC.users = new ArrayList<User>();
-        BASIC.properties = new ArrayList<Property>();
-
-        BASIC.users.add(u1);
-        BASIC.users.add(u2);
-        BASIC.users.add(u3);
-        BASIC.properties.add(p1);
-        BASIC.properties.add(p2);
-        BASIC.properties.add(p3);
-
-
-    }
-
-
-}

@@ -1,6 +1,10 @@
 import java.util.Date;
 
-public class Host {
+/**
+ * @author Noor Ul Zain
+ * @version 1.0
+ */
+class Host {
 
     private int hostId;
     private String firsName;
