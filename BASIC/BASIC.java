@@ -94,7 +94,6 @@ public class BASIC {
     /**
      * This function is used to add a user object to the static users list
      * of the BASIC class
-     * @return void
      */
     public static void addUser(){
 
@@ -125,7 +124,7 @@ public class BASIC {
             Date a = new Date();
 
             try {
-                a = new SimpleDateFormat("dd/mm/yyyy").parse(dob);
+                a = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
             } catch (ParseException e) {
                 System.out.println("Invalid date format");
                 System.out.println("Try again");
@@ -145,7 +144,7 @@ public class BASIC {
 
     /**
      * This is an auxiliary function used to check if a user exists with the id specified
-     * @param id
+     * @param id This is the user id
      * @return true if user exists else false
      */
     private static boolean checkUserExists(int id) {
@@ -159,7 +158,6 @@ public class BASIC {
 
     /**
      * This function is used to delete a user object from the static users list
-     * @return true if user exists else false
      */
     public static void deleteUser(int id){
         // first check if user exists
@@ -185,8 +183,7 @@ public class BASIC {
     /**
      *
      * This function is used to display the details of a user given the user id
-     * @param userId
-     * @return void
+     * @param userId This is the user id
      */
     public static void getUserDetails(int userId){
 
@@ -210,7 +207,6 @@ public class BASIC {
 
     /**
      * This function is used to add a property object to the static properties list
-     * @return void
      */
     public static void addProperty(){
 
@@ -247,7 +243,7 @@ public class BASIC {
         // parse registration date to a Date format
         Date a = new Date();
         try {
-            a = new SimpleDateFormat("dd/mm/yyyy").parse(regDate);
+            a = new SimpleDateFormat("dd/MM/yyyy").parse(regDate);
         }
         catch (ParseException e){
             System.out.println("Invalid date format");
@@ -261,7 +257,7 @@ public class BASIC {
 
     /**
      * This is an auxiliary function used to check if a property already exists with the id specified
-     * @param id
+     * @param id This is the property id
      * @return true if property exists else false
      */
     private static boolean checkPropertyExists(int id) {
@@ -276,8 +272,7 @@ public class BASIC {
 
     /**
      * This function is used to delete a property object from the static properties list
-     * @param propertyId
-     * @return void
+     * @param propertyId This is the property id
      */
     public static void deleteProperty(int propertyId){
 
@@ -301,8 +296,7 @@ public class BASIC {
 
     /**
      * This function is used to display the details of a property including its host
-     * @param propertyId
-     * @return void
+     * @param propertyId This is the property id
      */
     public static void getPropertyDetails(int propertyId){
 
@@ -322,9 +316,8 @@ public class BASIC {
 
     /**
      * This function is used to add a booking object to the bookings list of a particular user
-     * @param userId
-     * @param propertyId
-     * @return void
+     * @param userId  This is the user id
+     * @param propertyId This is the property id
      */
     public static void addBooking(int userId, int propertyId){
 
@@ -367,8 +360,8 @@ public class BASIC {
             Date a = new Date();
             Date b = new Date();
             try {
-                a = new SimpleDateFormat("dd/mm/yyyy").parse(startDate);
-                b = new SimpleDateFormat("dd/mm/yyyy").parse(endDate);
+                a = new SimpleDateFormat("dd/MM/yyyy").parse(startDate);
+                b = new SimpleDateFormat("dd/MM/yyyy").parse(endDate);
             } catch (ParseException e) {
                 System.out.println("Invalid date format");
                 System.out.println("Try again");
@@ -386,8 +379,7 @@ public class BASIC {
     /**
      * This function is used to display the bookings of a user
      * If the user does not exist or has no bookings, an appropriate message will be displayed
-     * @param userId
-     * @return void
+     * @param userId This is the user id
      */
     public static void getUserBooking(int userId){
 
@@ -419,9 +411,8 @@ public class BASIC {
     /**
      * This function displays the total booking cost of the bookings made by a particular user
      * for a particular property
-     * @param userId
-     * @param propertyId
-     * @return void
+     * @param userId This is the user id
+     * @param propertyId This is the property id
      */
     public static void getBookingCost(int userId, int propertyId){
         // first identify the booking object for a given user for a given property
@@ -439,7 +430,6 @@ public class BASIC {
 
     /**
      * This function displays all the Users in the system, in a string format
-     * @return void
      */
     public static void listUsers(){
         for (User user : users) {
@@ -449,7 +439,6 @@ public class BASIC {
 
     /**
      * This function displays all the Properties in the system, in a string format
-     * @return void
      */
     public static void listProperties(){
         for (Property property : properties) {
@@ -460,7 +449,6 @@ public class BASIC {
     /**
      * This function is used to exit the CLI booking application from the main method
      * of BASIC class
-     * @return void
      */
     public static void exit(){
         System.out.println("Exiting...");
