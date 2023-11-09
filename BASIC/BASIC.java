@@ -18,7 +18,7 @@ public class BASIC {
 
         int choice, userId, propertyId;
 
-        PopulateData.populate();
+        PopulateData.populate();  // it is a static method
 
 
         do {
@@ -447,6 +447,8 @@ public class BASIC {
                     if (user.getBookings().get(j).getProperty().getPropertyId() == propertyId) {
                         found2 = true;
                         System.out.println("\nFor the property of Id:  " + user.getBookings().get(j).getProperty().getPropertyId());
+                        System.out.println("Booking Start Date: " + user.getBookings().get(j).getStartDate());
+                        System.out.println("Booking End Date: " + user.getBookings().get(j).getEndDate());
                         System.out.println("Booking Cost: " + user.getBookings().get(j).totalCost());
                     }
                 }
