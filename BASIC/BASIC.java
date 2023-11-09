@@ -14,67 +14,74 @@ public class BASIC {
     public static ArrayList<User> users;
     public static ArrayList<Property> properties;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
         int choice, userId, propertyId;
 
-        menu();
-        Scanner sc = new Scanner(System.in);
-        choice = sc.nextInt();
+        PopulateData.populate();
 
 
-        switch (choice) {
-            case 1 -> addUser();
-            case 2 -> {
-                System.out.println("Enter User ID");
-                userId = sc.nextInt();
-                deleteUser(userId);
+        do {
+            menu();
+            Scanner sc = new Scanner(System.in);
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1 -> addUser();
+                case 2 -> {
+                    System.out.print("Enter User ID: ");
+                    userId = sc.nextInt();
+                    deleteUser(userId);
+                }
+                case 3 -> {
+                    System.out.print("Enter User ID: ");
+                    userId = sc.nextInt();
+                    getUserDetails(userId);
+                }
+                case 4 -> addProperty();
+                case 5 -> {
+                    System.out.print("Enter Property ID: ");
+                    propertyId = sc.nextInt();
+                    deleteProperty(propertyId);
+                }
+                case 6 -> {
+                    System.out.print("Enter Property ID: ");
+                    propertyId = sc.nextInt();
+                    getPropertyDetails(propertyId);
+                }
+                case 7 -> {
+                    System.out.print("Enter User ID: ");
+                    userId = sc.nextInt();
+                    System.out.print("Enter Property ID: ");
+                    propertyId = sc.nextInt();
+                    addBooking(userId, propertyId);
+                }
+                case 8 -> {
+                    System.out.print("Enter User ID: ");
+                    userId = sc.nextInt();
+                    getUserBooking(userId);
+                }
+                case 9 -> {
+                    System.out.print("Enter User ID: ");
+                    userId = sc.nextInt();
+                    System.out.print("Enter Property ID: ");
+                    propertyId = sc.nextInt();
+                    getBookingCost(userId, propertyId);
+                }
+                case 10 -> listUsers();
+                case 11 -> listProperties();
+                case 12 -> exit();
+                default -> System.out.println("Invalid choice");
+
             }
-            case 3 -> {
-                System.out.println("Enter User ID");
-                userId = sc.nextInt();
-                getUserDetails(userId);
-            }
-            case 4 -> addProperty();
-            case 5 -> {
-                System.out.println("Enter Property ID");
-                propertyId = sc.nextInt();
-                deleteProperty(propertyId);
-            }
-            case 6 -> {
-                System.out.println("Enter Property ID");
-                propertyId = sc.nextInt();
-                getPropertyDetails(propertyId);
-            }
-            case 7 -> {
-                System.out.println("Enter User ID");
-                userId = sc.nextInt();
-                System.out.println("Enter Property ID");
-                propertyId = sc.nextInt();
-                addBooking(userId, propertyId);
-            }
-            case 8 -> {
-                System.out.println("Enter User ID");
-                userId = sc.nextInt();
-                getUserBooking(userId);
-            }
-            case 9 -> {
-                System.out.println("Enter Booking ID");
-                userId = sc.nextInt();
-                System.out.println("Enter Property ID");
-                propertyId = sc.nextInt();
-                getBookingCost(userId, propertyId);
-            }
-            case 10 -> listUsers();
-            case 11 -> listProperties();
-            case 12 -> exit();
-        }
+
+        }while (choice != 12) ;
     }
 
 
     public static void menu(){
 
-        System.out.println("----MENU----");
+        System.out.println("\n----MENU----");
         System.out.println("1. Add User");
         System.out.println("2. Delete User");
         System.out.println("3. Get User Details");
@@ -87,6 +94,7 @@ public class BASIC {
         System.out.println("10. List Users");
         System.out.println("11. List Properties");
         System.out.println("12. Exit");
+        System.out.print("Enter your choice: ");
 
     }
 
@@ -100,47 +108,51 @@ public class BASIC {
         int id;
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("----ADD USER----");
+        System.out.println("\n----ADD USER----\n");
 
         // check if user already exists
         do {
-            System.out.println("Enter User ID: ");
+            System.out.print("Enter User ID: ");
             id = sc.nextInt();
         }while(checkUserExists(id));
 
         users.add(new User(id));
         System.out.println("User added successfully");
-        System.out.println("Would you like to add details for the user?");
-        char choice = sc.next().charAt(0);
-        if (choice == 'y' || choice == 'Y'){
-            System.out.println("Enter first name: ");
-            String firstName = sc.next();
-            System.out.println("Enter last name: ");
-            String lastName = sc.next();
-            System.out.println("Enter dob (dd/mm/yyyy: ");
-            String dob = sc.next();
+        System.out.println("Add more details for the user");
+        System.out.print("Enter first name: ");
+        String firstName = sc.next();
+        System.out.print("Enter last name: ");
+        String lastName = sc.next();
+        System.out.print("Enter dob (dd/mm/yyyy): ");
+        String dob = sc.next();
 
-            // parse dob to a Date format
-            Date a = new Date();
 
+        // parse dob to a Date format
+        Date a = new Date();
+
+        boolean flag;
+        do {
+           flag = false;
             try {
                 a = new SimpleDateFormat("dd/MM/yyyy").parse(dob);
             } catch (ParseException e) {
-                System.out.println("Invalid date format");
+                System.out.println("\nInvalid date format");
+                flag = true;
                 System.out.println("Try again");
+                System.out.print("Enter dob (dd/mm/yyyy): ");
+                dob = sc.next();
             }
-            //access the user object and add the details
-            users.get(users.size() - 1).setFirstName(firstName);
-            users.get(users.size() - 1).setLastName(lastName);
-            users.get(users.size() - 1).setDateOfBirth(a);
 
-        }
-        else{
-            System.out.println("Add details for the user later, thank you!");
+        }while (flag);
 
-        }
+        //access the user object and add the details
+        users.get(users.size() - 1).setFirstName(firstName);
+        users.get(users.size() - 1).setLastName(lastName);
+        users.get(users.size() - 1).setDateOfBirth(a);
+        System.out.println("User added successfully");
 
     }
+
 
     /**
      * This is an auxiliary function used to check if a user exists with the id specified
@@ -150,6 +162,7 @@ public class BASIC {
     private static boolean checkUserExists(int id) {
         for (User user : users){
             if (user.getUserId() == id){
+                System.out.println("User already exists!\n");
                 return true;
             }
         }
@@ -165,11 +178,12 @@ public class BASIC {
         int i, originalSize;
         originalSize = users.size();
 
-        System.out.println("----DELETE USER----");
+        System.out.println("\n----DELETE USER----\n");
 
         for (i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == id){
                 users.remove(i);
+                System.out.println("User deleted successfully");
                 break;
             }
         }
@@ -188,19 +202,19 @@ public class BASIC {
     public static void getUserDetails(int userId){
 
         int i, found = 0;
-        System.out.println("----GET USER DETAILS----");
+        System.out.println("\n----GET USER DETAILS----\n");
 
         // first check if user exists
         // then find the index of the user with the specified id
         for (i = 0; i < users.size(); i++) {
             if (users.get(i).getUserId() == userId){
-                System.out.println(users.get(i).toString());
+                System.out.println(users.get(i));
                 found = 1;
                 break;
             }
         }
         if (found == 0){
-            System.out.println("This User does not exist!");
+            System.out.println("\nThis User does not exist!");
         }
 
     }
@@ -212,32 +226,32 @@ public class BASIC {
 
         int id;
         Scanner sc = new Scanner(System.in);
-        System.out.println("----ADD PROPERTY----");
+        System.out.println("\n----ADD PROPERTY----\n");
 
         //let's check if property already exists
         do{
-            System.out.println("Enter Property ID: ");
+            System.out.print("Enter Property ID: ");
             id = sc.nextInt();
 
         }while (checkPropertyExists(id));
-        System.out.println("Enter Number of Bed Rooms: ");
+        System.out.print("Enter Number of Bed Rooms: ");
         int noBedRooms = sc.nextInt();
-        System.out.println("Enter Number of Rooms: ");
+        System.out.print("Enter Number of Rooms: ");
         int noRooms = sc.nextInt();
-        System.out.println("Enter City: ");
+        System.out.print("Enter City: ");
         String city = sc.next();
-        System.out.println("Enter Price Per Day: ");
+        System.out.print("Enter Price Per Day: ");
         float pricePerDay = sc.nextFloat();
 
 
         System.out.println("Please add Host details");
-        System.out.println("Enter User ID: ");
+        System.out.print("Enter Host ID: ");
         id = sc.nextInt();
-        System.out.println("Enter first name: ");
+        System.out.print("Enter first name: ");
         String firstName = sc.next();
-        System.out.println("Enter last name: ");
+        System.out.print("Enter last name: ");
         String lastName = sc.next();
-        System.out.println("Enter registration date (dd/mm/yyyy): ");
+        System.out.print("Enter registration date (dd/mm/yyyy): ");
         String regDate = sc.next();
 
         // parse registration date to a Date format
@@ -251,7 +265,7 @@ public class BASIC {
         }
         //access the property object and add the details
         properties.add(new Property(id, noBedRooms, noRooms, city, pricePerDay, new Host(id, firstName, lastName, a)));
-        System.out.println("Property with its host added successfully");
+        System.out.println("\nProperty with its host added successfully");
 
     }
 
@@ -263,6 +277,7 @@ public class BASIC {
     private static boolean checkPropertyExists(int id) {
         for (Property property : properties){
             if (property.getPropertyId() == id){
+                System.out.println("Property already exists!\n");
                 return true;
             }
         }
@@ -278,11 +293,12 @@ public class BASIC {
 
         int originalSize;
         originalSize = properties.size();
-        System.out.println("----DELETE PROPERTY----");
+        System.out.println("\n----DELETE PROPERTY----\n");
 
         for (int i = 0; i < properties.size(); i++) {
             if (properties.get(i).getPropertyId() == propertyId){
                 properties.remove(i);
+                System.out.println("Property deleted successfully");
                 break;
             }
         }
@@ -301,9 +317,11 @@ public class BASIC {
     public static void getPropertyDetails(int propertyId){
 
         int found = 0;
+
+        System.out.println("\n----GET PROPERTY DETAILS----\n");
         for (Property property : properties) {
             if (property.getPropertyId() == propertyId) {
-                System.out.println(property.toString());
+                System.out.println(property);
                 found = 1;
                 break;
             }
@@ -367,8 +385,6 @@ public class BASIC {
                 System.out.println("Try again");
             }
 
-            // we also need to check if the property is available for the given dates??
-
             // access the user object and add the booking with the specified dates and property
             users.get(uindex).addBooking(new Booking(a, b, properties.get(pindex)));
 
@@ -395,14 +411,17 @@ public class BASIC {
         }
 
         if (!found){
-            System.out.println("User not found");
+            System.out.println("User does not exist, Try again!");
         }
         else if(u.getBookings().size() == 0){
-            System.out.println("User has no bookings");
+            System.out.println("User has no bookings!");
         }
         else {
+            System.out.println("\n-------User bookings--------\n");
             for (int i = 0; i < u.getBookings().size(); i++) {
-                System.out.println(u.getBookings().get(i).toString());
+                System.out.println(u.getBookings().get(i).getStartDate() + " till " + u.getBookings().get(i).getEndDate());
+                System.out.println( "For the " +u.getBookings().get(i).getProperty());
+                System.out.println();
             }
         }
 
@@ -416,33 +435,53 @@ public class BASIC {
      */
     public static void getBookingCost(int userId, int propertyId){
         // first identify the booking object for a given user for a given property
-        // re check this
+
+        boolean found = false;
+        boolean found2 = false;
+
+        System.out.println("\n----GET BOOKING COST----\n");
         for (User user : users) {
             if (user.getUserId() == userId) {
+                found = true;
                 for (int j = 0; j < user.getBookings().size(); j++) {
                     if (user.getBookings().get(j).getProperty().getPropertyId() == propertyId) {
+                        found2 = true;
+                        System.out.println("\nFor the property of Id:  " + user.getBookings().get(j).getProperty().getPropertyId());
                         System.out.println("Booking Cost: " + user.getBookings().get(j).totalCost());
                     }
                 }
             }
+
         }
+        if (!found){
+            System.out.println("User does not exist, Try again!");
+        }
+        if (!found2){
+            System.out.println("Property does not exist, Try again!");
+        }
+
     }
 
     /**
      * This function displays all the Users in the system, in a string format
      */
     public static void listUsers(){
+        System.out.println("\n----LISTING USERS----\n");
         for (User user : users) {
-            System.out.println(user.toString());
+            System.out.println(user);
+            System.out.println();
         }
+
     }
 
     /**
      * This function displays all the Properties in the system, in a string format
      */
     public static void listProperties(){
+        System.out.println("\n----LISTING PROPERTIES----\n");
         for (Property property : properties) {
-            System.out.println(property.toString());
+            System.out.println(property);
+            System.out.println();
         }
     }
 
@@ -453,7 +492,6 @@ public class BASIC {
     public static void exit(){
         System.out.println("Exiting...");
         System.out.println("Goodbye!");
-        exit();
     }
 
 }

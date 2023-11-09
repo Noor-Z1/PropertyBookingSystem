@@ -91,10 +91,8 @@ class Property {
      * @return the string representation of Property
      */
     public String toString() {
-        return "Property [propertyId=" + propertyId + ", noBedRooms=" +
-                noBedRooms + ", noRooms=" + noRooms + "," +
-                " city=" + city + ", pricePerDay=" + pricePerDay + ", The host details are: "
-                + host.toString() + "]";
+        return "Property: propertyId is " + propertyId + ", noBedRooms are " +  noBedRooms + ", noRooms are " + noRooms + "," +
+                " city is " + city + ", pricePerDay is " + pricePerDay +"\n"+ host.toString() + ".";
     }
 
 

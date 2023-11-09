@@ -86,7 +86,7 @@ class Booking {
      * @return the string representation of the Booking object
      */
     public String toString(){
-        return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", isPaid=" + isPaid + ", property=" + property.toString() + "]";
+        return "Booking: startDate is " + startDate.toString() + ", endDate is" + endDate.toString() + ", isPaid: " + isPaid + ", property: " + property.toString() + ".";
     }
 
 

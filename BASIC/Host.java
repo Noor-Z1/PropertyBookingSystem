@@ -67,11 +67,11 @@ class Host {
      * @return the string representation of Host
      */
     public String toString(){
-        return "Host{" +
-                "hostId=" + hostId +
-                ", firsName='" + firsName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", registrationDate=" + registrationDate +
+        return "Host: " +
+                "hostId is " + hostId +
+                ", firsName is " + firsName +
+                ", lastName is " + lastName +
+                ", registrationDate is " + registrationDate.toString() +
                 '}';
     }
 

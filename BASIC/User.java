@@ -1,5 +1,6 @@
 package BASIC;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -103,7 +104,7 @@ class User {
      * @return the string representation of the user.
      */
     public String toString(){
-        return "User [userId=" + userId + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+        return "User: userId is " + userId + ", dateOfBirth is " + dateOfBirth.toString() + ", firstName is " + firstName + ", lastName is " + lastName + ".";
     }
 
 
