@@ -1,4 +1,4 @@
-package BASIC;
+package Project1.BASIC;
 
 import java.text.*;
 import java.util.ArrayList;

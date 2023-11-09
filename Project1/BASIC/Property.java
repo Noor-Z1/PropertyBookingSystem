@@ -1,4 +1,4 @@
-package BASIC;
+package Project1.BASIC;
 
 /**
  * Represents a class that stores information about a Property
