@@ -1,2 +1,5 @@
 # Java
-Java mini projects/assignments
+Java mini projects/assignments completed for coursework.
+
+
+
