@@ -1,3 +1,7 @@
+package BASIC;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,13 +20,18 @@ class PopulateData {
             Property p2 = new Property(2, 2, 2, "Madrid", 150);
             Property p3 = new Property(3, 4, 4, "Valencia", 300);
 
-            p1.setHost( new Host(22, "Marcus", "Weiser", new Date("01/2/2017")) );
-            p2.setHost( new Host(33, "John", "Karis", new Date("22/5/2018")) );
-            p3.setHost( new Host(44, "Carolina", "Silva", new Date("17/8/2022")) );
+            try {
+                p1.setHost( new Host(22, "Marcus", "Weiser", new SimpleDateFormat("dd/mm/yyyy").parse("3/2/2023")));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            p2.setHost( new Host(33, "John", "Karis", new Date()));
+            p3.setHost( new Host(44, "Carolina", "Silva", new Date()));
 
-            Booking b1 = new Booking(new Date("01/2/2017"), new Date("02/2/2017"), p1);
-            Booking b2 = new Booking(new Date("22/5/2018"), new Date("23/5/2018"), p2);
-            Booking b3 = new Booking(new Date("17/8/2022"), new Date("18/8/2022"), p3);
+            Booking b1 = new Booking(new Date(), new Date(), p1);
+            Booking b2 = new Booking(new Date(), new Date(), p2);
+            Booking b3 = new Booking(new Date(), new Date(), p3);
+
 
             // add users (custom)
             User u1 = new User(2243);
