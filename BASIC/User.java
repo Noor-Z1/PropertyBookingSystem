@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 
 
-/**
+/** Represents a class that stores information about a User
+ *  who can make bookings in the system
  * @author Noor Ul Zain
  * @version 1.0
+ * @see Booking
  */
 
 class User {
@@ -80,10 +82,8 @@ class User {
     }
 
     /**
-     * @param booking
-     * @see Booking
+     * @param booking This is the booking object
      * This function is used to add a booking object to the bookings list of the user.
-     *
      */
     public void addBooking(Booking booking){
         this.bookings.add(booking);
@@ -101,7 +101,6 @@ class User {
     /**
      * This is the function that overrides the toString() method of the object class.
      * @return the string representation of the user.
-     *
      */
     public String toString(){
         return "User [userId=" + userId + ", dateOfBirth=" + dateOfBirth + ", firstName=" + firstName + ", lastName=" + lastName + "]";

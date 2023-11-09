@@ -2,9 +2,11 @@ package BASIC;
 
 import java.util.Date;
 
-/**
+/** Represents a Booking class that stores information about a booking
+ *  and the Property associated with the booking
  * @author Noor Ul Zain
  * @version 1.0
+ * @see Property
  */
 class Booking {
 
@@ -63,7 +65,6 @@ class Booking {
 
     }
 
-
     /**
      * This function computes the total cost of the particular booking
      * @return the total cost of the booking
@@ -72,9 +73,10 @@ class Booking {
 
         // first find the number of days
         // then multiply the number of days by the cost per day
-        float a = endDate.getTime() - startDate.getTime();
-        float days = a / (1000 * 60 * 60 * 24);
 
+        float a = endDate.getTime() - startDate.getTime();
+        //to convert the time to days
+        float days = a / (1000 * 60 * 60 * 24);
         return days * property.getPricePerDay();
 
     }
@@ -83,9 +85,8 @@ class Booking {
      * This function overrides the toString() function of the object class
      * @return the string representation of the Booking object
      */
-
     public String toString(){
-        return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", isPaid=" + isPaid + ", property=" + property + "]";
+        return "Booking [startDate=" + startDate + ", endDate=" + endDate + ", isPaid=" + isPaid + ", property=" + property.toString() + "]";
     }
 
 

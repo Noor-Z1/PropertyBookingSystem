@@ -1,8 +1,11 @@
 package BASIC;
 
 /**
+ * Represents a class that stores information about a Property
+ * that is owned by a Host
  * @author Noor Ul Zain
  * @version 1.0
+ * @see Host
  */
 class Property {
     private int propertyId;
@@ -82,7 +85,11 @@ class Property {
         this.host = host;
     }
 
-
+    /**
+     * This method returns the Property description
+     * by overriding the toString() method of the object class
+     * @return the string representation of Property
+     */
     public String toString() {
         return "Property [propertyId=" + propertyId + ", noBedRooms=" +
                 noBedRooms + ", noRooms=" + noRooms + "," +

@@ -2,9 +2,12 @@ package BASIC;
 
 import java.util.Date;
 
-/**
+
+/** Represents a class that stores information about a Host
+ *  who owns a Property in the system
  * @author Noor Ul Zain
  * @version 1.0
+ * @see Property
  */
 class Host {
 
@@ -58,5 +61,18 @@ class Host {
         this.registrationDate = registrationDate;
     }
 
+    /**
+     * This method returns the Host description
+     * by overriding the toString() method of the object class
+     * @return the string representation of Host
+     */
+    public String toString(){
+        return "Host{" +
+                "hostId=" + hostId +
+                ", firsName='" + firsName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", registrationDate=" + registrationDate +
+                '}';
+    }
 
 }
