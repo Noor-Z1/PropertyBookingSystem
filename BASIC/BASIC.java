@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 
-/**
+/** Represents a class that manages users and properties for a booking system.
  * @author Noor Ul Zain
  * @version 1.0
  */
@@ -94,6 +94,7 @@ public class BASIC {
     /**
      * This function is used to add a user object to the static users list
      * of the BASIC class
+     * @return void
      */
     public static void addUser(){
 
@@ -183,7 +184,9 @@ public class BASIC {
 
     /**
      *
+     * This function is used to display the details of a user given the user id
      * @param userId
+     * @return void
      */
     public static void getUserDetails(int userId){
 
@@ -207,7 +210,7 @@ public class BASIC {
 
     /**
      * This function is used to add a property object to the static properties list
-     *
+     * @return void
      */
     public static void addProperty(){
 
@@ -414,8 +417,11 @@ public class BASIC {
     }
 
     /**
+     * This function displays the total booking cost of the bookings made by a particular user
+     * for a particular property
      * @param userId
      * @param propertyId
+     * @return void
      */
     public static void getBookingCost(int userId, int propertyId){
         // first identify the booking object for a given user for a given property
@@ -432,7 +438,8 @@ public class BASIC {
     }
 
     /**
-     *
+     * This function displays all the Users in the system, in a string format
+     * @return void
      */
     public static void listUsers(){
         for (User user : users) {
@@ -441,7 +448,8 @@ public class BASIC {
     }
 
     /**
-     *
+     * This function displays all the Properties in the system, in a string format
+     * @return void
      */
     public static void listProperties(){
         for (Property property : properties) {
@@ -450,7 +458,9 @@ public class BASIC {
     }
 
     /**
-     *
+     * This function is used to exit the CLI booking application from the main method
+     * of BASIC class
+     * @return void
      */
     public static void exit(){
         System.out.println("Exiting...");
