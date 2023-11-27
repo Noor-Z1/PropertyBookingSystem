@@ -1,11 +1,11 @@
-package Project1.BASIC;
+package BASIC.Project1.BASIC;
 
 import java.util.Date;
 
 /** Represents a Booking class that stores information about a booking
  *  and the Property associated with the booking
  * @author Noor Ul Zain
- * @version 1.0
+ * @version 2.0
  * @see Property
  */
 class Booking {

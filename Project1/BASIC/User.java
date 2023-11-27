@@ -1,4 +1,4 @@
-package Project1.BASIC;
+package BASIC.Project1.BASIC;
 
 import java.util.Date;
 import java.util.ArrayList;

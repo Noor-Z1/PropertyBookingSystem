@@ -1,4 +1,4 @@
-package Project1.BASIC;
+package BASIC.Project1.BASIC;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
