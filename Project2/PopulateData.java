@@ -30,10 +30,13 @@ class PopulateData {
             Property p3 = new SharedProperty(3, 2, 4, "Paris", 400);
 
 
-            p1.setHost( new Host(22,new SimpleDateFormat("dd/MM/yyyy").parse("01/2/2001") ,"Marcus", "Weiser", new SimpleDateFormat("dd/MM/yyyy").parse("3/2/2023"), 22314 ));
-            p2.setHost( new Host(33,new SimpleDateFormat("dd/MM/yyyy").parse("02/4/1997"),"John", "Karis", new SimpleDateFormat("dd/MM/yyyy").parse("14/05/2022"), 34521));
-            p3.setHost( new Host(44,new SimpleDateFormat("dd/MM/yyyy").parse("25/8/1999"),"Carolina", "Silva", new SimpleDateFormat("dd/MM/yyyy").parse("1/05/2021"), 54321));
+            Host h1 = new Host(11,new SimpleDateFormat("dd/MM/yyyy").parse("01/2/2001") ,"Marcus", "Weiser", new SimpleDateFormat("dd/MM/yyyy").parse("3/2/2023"), 22314 );
+            Host h2 = new Host(22,new SimpleDateFormat("dd/MM/yyyy").parse("02/4/1997"),"John", "Karis", new SimpleDateFormat("dd/MM/yyyy").parse("14/05/2022"), 34521);
+            Host h3 = new Host(33,new SimpleDateFormat("dd/MM/yyyy").parse("25/8/1999"),"Carolina", "Silva", new SimpleDateFormat("dd/MM/yyyy").parse("1/05/2021"), 54321);
 
+            p1.setHost(h1);
+            p2.setHost(h2);
+            p3.setHost(h3);
 
             Booking b1 = new Booking(new SimpleDateFormat("dd/MM/yyyy").parse("5/4/2023"), new SimpleDateFormat("dd/MM/yyyy").parse("6/5/2023"), true, p1);
             Booking b2 = new Booking(new SimpleDateFormat("dd/MM/yyyy").parse("7/6/2023"), new SimpleDateFormat("dd/MM/yyyy").parse("7/7/2023"), true, p2);
@@ -85,6 +88,9 @@ class PopulateData {
             BASIC.users.add(u3);
             BASIC.users.add(u4);
             BASIC.users.add(u5);
+            BASIC.users.add(h1);
+            BASIC.users.add(h2);
+            BASIC.users.add(h3);
             BASIC.properties.add(p1);
             BASIC.properties.add(p2);
             BASIC.properties.add(p3);

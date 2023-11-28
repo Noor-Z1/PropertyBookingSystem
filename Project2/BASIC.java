@@ -171,7 +171,7 @@ public class BASIC {
 
         // ask for the type of user
         do {
-            System.out.print("Which User do you want to add? " + "\n" + "1. Host or 2. Customer");
+            System.out.print("Which User do you want to add? " + "\n" + "1. Host or 2. Customer: ");
             choice = sc.nextInt();
         }while(choice != 1 && choice != 2);
 
@@ -179,21 +179,19 @@ public class BASIC {
             System.out.print("Enter the taxNumber for the Host: ");
             double taxNumber = sc.nextDouble();
             users.add(new Host(id, taxNumber));
+
         }
         else {
 
-            System.out.print("Enter preferred payment method of Customer: ");
+            System.out.print("Enter preferred payment method of Customer (Cash or Card or Paypal): ");
             String payment = sc.next();
-
             do {
 
-                System.out.print("Select type of Customer " + "\n" + "1. Gold or 2. Standard");
+                System.out.print("Select type of Customer " + "\n" + "1. Gold or 2. Standard: ");
                 choice = sc.nextInt();
-
             }while (choice != 1 && choice != 2);
 
             if (choice == 1) {
-
                 do{
                     System.out.println("Enter the level of Gold Customer (1-3): ");
                     level = sc.nextInt();
@@ -272,6 +270,7 @@ public class BASIC {
         return false;
     }
 
+
     /**
      * This function is used to delete a user object from the static users list
      * based on the user id
@@ -334,7 +333,7 @@ public class BASIC {
      */
     public static void addProperty(){
 
-        int id;
+        int id, choice;
         Scanner sc = new Scanner(System.in);
         System.out.println("\n----ADD PROPERTY----\n");
 
@@ -346,8 +345,10 @@ public class BASIC {
         }while (checkPropertyExists(id));
 
 
-        System.out.print("Which type of property are you adding?\n 1.Shared or 2.Full:  ");
-        int choice = sc.nextInt();
+        do {
+            System.out.print("Which type of property are you adding?\n 1.Shared or 2.Full:  ");
+            choice = sc.nextInt();
+        }while (choice != 1 && choice != 2);
 
         if (choice == 1){
             properties.add(new SharedProperty(id,0,0,"",0));
@@ -381,7 +382,7 @@ public class BASIC {
         if (hostExists(id)) {
             System.out.println("Host already exists!");
             properties.get(properties.size()-1).setHost(getspecificHost(id));
-            System.out.println("Property with its host added successfully");
+
 
         }
         else {
@@ -674,12 +675,14 @@ public class BASIC {
         for (Property property : properties) {
             if (property.getPropertyId() == propertyId) {
                 Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-                String d = formatter.format(date);
-                System.out.print("Current date: "+d);
+                // for testing
+//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+//                String d = formatter.format(date);
+//                System.out.print("Current date: "+d);
                 property.addInspection(date, str);
                 found = true;
-                System.out.println("Inspection added successfully: " + property.getInspection());
+                //displaying for testing purposes
+                System.out.println("Inspection added successfully: \n " + property.getInspection());
                 break;
             }
         }
@@ -710,7 +713,7 @@ public class BASIC {
             }
         }
         if (p1 == null || p2 == null) {
-            System.out.println("Property not found");
+            System.out.println("One or both property not found");
         }
         else {
             int compare = p1.compareTo(p2);

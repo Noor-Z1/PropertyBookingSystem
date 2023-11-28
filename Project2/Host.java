@@ -58,7 +58,7 @@ class Host extends User{
      * @return the string representation of Host
      */
     public String toString(){
-        return super.toString() + "Host has the tax Number: " + taxNumber;
+        return super.toString() + "\nHost has the tax Number: " + taxNumber;
     }
 
 }
