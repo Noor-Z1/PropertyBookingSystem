@@ -1,6 +1,12 @@
 package BASIC.Project2;
 
+import javax.naming.directory.BasicAttribute;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,10 +19,41 @@ import java.util.Scanner;
  * @see User
  * @see Property
  */
-public class BASIC {
+public class BASIC extends JFrame{
     public static ArrayList<User> users;
     public static ArrayList<Property> properties;
 
+    private  JLabel welcomeToBedAndLabel;
+    private  JPanel panel1;
+    private JPanel panel2;
+    private  JButton aboutButton;
+    private  JButton menuButton;
+
+
+    BASIC()
+    {
+        setContentPane(panel1);
+        setTitle("Bed and Breafast");
+        setSize(450,300);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel1.setVisible(false);
+
+                panel2 = new JPanel(new GridLayout());
+                setContentPane(panel2);
+                panel2.setBackground(new Color(159,126,167));
+                setVisible(true);
+
+
+            }
+
+
+        });
+    }
 
     /**
      * This function is the main function/entry point of the BASIC class
@@ -25,100 +62,104 @@ public class BASIC {
      * @param args: command line arguments
      */
     public static void main(String[] args)  {
+        BASIC myframe = new BASIC();
 
-        int choice, userId, propertyId, p1,p2;
+
+
 
 
         // doing the checked exception handling here
         // however this exception will not occur at all
         // as data in populateData is manually added
         // and the date format is correct
-        try {
-            PopulateData.populate();
-        }
-        catch (ParseException e) {
-           System.out.println("Error while populating data");
-           System.exit(0);
-        }
-
-
-        do {
-            menu();
-            Scanner sc = new Scanner(System.in);
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1 -> addUser();
-                case 2 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    deleteUser(userId);
-                }
-                case 3 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    getUserDetails(userId);
-                }
-                case 4 -> addProperty();
-                case 5 -> {
-                    System.out.print("Enter Property ID: ");
-                    propertyId = sc.nextInt();
-                    deleteProperty(propertyId);
-                }
-                case 6 -> {
-                    System.out.print("Enter Property ID: ");
-                    propertyId = sc.nextInt();
-                    getPropertyDetails(propertyId);
-                }
-                case 7 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    System.out.print("Enter Property ID: ");
-                    propertyId = sc.nextInt();
-                    addBooking(userId, propertyId);
-                }
-                case 8 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    getUserBooking(userId);
-                }
-                case 9 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    System.out.print("Enter Property ID: ");
-                    propertyId = sc.nextInt();
-                    getBookingCost(userId, propertyId);
-                }
-                case 10 -> listUsers();
-                case 11 -> listProperties();
-                case 12 -> exit();
-
-                case 13 -> {
-                    System.out.print("Enter User ID: ");
-                    userId = sc.nextInt();
-                    System.out.println(getDiscountForUser(userId));
-                }
-                case 14 -> {
-                    System.out.print("Enter Property ID: ");
-                    propertyId = sc.nextInt();
-                    System.out.print("Enter Inspection: ");
-                    // clear buffer
-                    sc.nextLine();
-                    String inspection = sc.nextLine();
-                    addInspectionToProperty(propertyId, inspection);
-                }
-                case 15 -> {
-                    System.out.print("Enter Property ID1: ");
-                    p1 = sc.nextInt();
-                    System.out.print("Enter Property ID2: ");
-                    p2 = sc.nextInt();
-                    comparePropertyPricesPerDay(p1,p2);
-                }
-
-                default -> System.out.println("Invalid choice");
-            }
-
-        }while (choice != 12) ;
+//        try {
+//            PopulateData.populate();
+//        }
+//        catch (ParseException e) {
+//           System.out.println("Error while populating data");
+//           System.exit(0);
+//        }
+//
+//
+//        // lets make a GUI for the user
+//
+//        do {
+//            menu();
+//            Scanner sc = new Scanner(System.in);
+//            choice = sc.nextInt();
+//
+//            switch (choice) {
+//                case 1 -> addUser();
+//                case 2 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    deleteUser(userId);
+//                }
+//                case 3 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    getUserDetails(userId);
+//                }
+//                case 4 -> addProperty();
+//                case 5 -> {
+//                    System.out.print("Enter Property ID: ");
+//                    propertyId = sc.nextInt();
+//                    deleteProperty(propertyId);
+//                }
+//                case 6 -> {
+//                    System.out.print("Enter Property ID: ");
+//                    propertyId = sc.nextInt();
+//                    getPropertyDetails(propertyId);
+//                }
+//                case 7 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    System.out.print("Enter Property ID: ");
+//                    propertyId = sc.nextInt();
+//                    addBooking(userId, propertyId);
+//                }
+//                case 8 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    getUserBooking(userId);
+//                }
+//                case 9 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    System.out.print("Enter Property ID: ");
+//                    propertyId = sc.nextInt();
+//                    getBookingCost(userId, propertyId);
+//                }
+//                case 10 -> listUsers();
+//                case 11 -> listProperties();
+//                case 12 -> exit();
+//
+//                case 13 -> {
+//                    System.out.print("Enter User ID: ");
+//                    userId = sc.nextInt();
+//                    System.out.println(getDiscountForUser(userId));
+//                }
+//                case 14 -> {
+//                    System.out.print("Enter Property ID: ");
+//                    propertyId = sc.nextInt();
+//                    System.out.print("Enter Inspection: ");
+//                    // clear buffer
+//                    sc.nextLine();
+//                    String inspection = sc.nextLine();
+//                    addInspectionToProperty(propertyId, inspection);
+//                }
+//                case 15 -> {
+//                    System.out.print("Enter Property ID1: ");
+//                    p1 = sc.nextInt();
+//                    System.out.print("Enter Property ID2: ");
+//                    p2 = sc.nextInt();
+//                    comparePropertyPricesPerDay(p1,p2);
+//                }
+//
+//                default -> System.out.println("Invalid choice");
+//            }
+//
+//        }while (choice != 12) ;
     }
 
 
@@ -740,5 +781,8 @@ public class BASIC {
         System.out.println("Goodbye!");
     }
 
+    private void createUIComponents() {
+
+    }
 }
 
