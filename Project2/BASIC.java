@@ -1,12 +1,11 @@
 package BASIC.Project2;
 
-import javax.naming.directory.BasicAttribute;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,39 +19,50 @@ import java.util.Scanner;
  * @see Property
  */
 public class BASIC extends JFrame{
-    public static ArrayList<User> users;
-    public static ArrayList<Property> properties;
+    static ArrayList<User> users = new ArrayList<>();
+    static ArrayList<Property> properties = new ArrayList<>();
 
-    private  JLabel welcomeToBedAndLabel;
-    private  JPanel panel1;
-    private JPanel panel2;
-    private  JButton aboutButton;
-    private  JButton menuButton;
+    public static void setUsers(ArrayList<User> users) {
+        BASIC.users = users;
+    }
 
+    public static void setProperties(ArrayList<Property> properties) {
+        BASIC.properties = properties;
+    }
+
+    private  JPanel mainPanel;
+    private JPanel menuPanel;
+    private JMenuBar mb;
+    private JTextArea welcomeToBedAndTextArea;
+    private JMenu m;
+    private JFileChooser fileNavi;
 
     BASIC()
     {
-        setContentPane(panel1);
-        setTitle("Bed and Breafast");
-        setSize(450,300);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
-
-        menuButton.addActionListener(new ActionListener() {
+        m = new JMenu("File");
+        m.setBackground(Color.BLACK);
+        m.setForeground(Color.pink);
+        fileNavi = new JFileChooser();
+        JMenuItem load = new JMenuItem("Load Data");
+        JMenuItem save = new JMenuItem("Save Data");
+        load.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel1.setVisible(false);
-
-                panel2 = new JPanel(new GridLayout());
-                setContentPane(panel2);
-                panel2.setBackground(new Color(159,126,167));
-                setVisible(true);
-
 
             }
-
-
         });
+
+        m.add(load);
+        m.add(save);
+        mb.add(m);
+        mb.add(new JMenu("Help"));
+        setContentPane(mainPanel);
+        setTitle("Bed and Breafast");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        pack();
+        setVisible(true);
+
     }
 
     /**
@@ -61,107 +71,46 @@ public class BASIC extends JFrame{
      * and the management system is accessed
      * @param args: command line arguments
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         BASIC myframe = new BASIC();
+        users.add(new Host(1, 22));
+        myframe.setVisible(false);
 
 
-
-
-
-        // doing the checked exception handling here
-        // however this exception will not occur at all
-        // as data in populateData is manually added
-        // and the date format is correct
-//        try {
-//            PopulateData.populate();
-//        }
-//        catch (ParseException e) {
-//           System.out.println("Error while populating data");
-//           System.exit(0);
-//        }
+//        AddUserPage add = new AddUserPage();
+//        add.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent e) {
 //
-//
-//        // lets make a GUI for the user
-//
-//        do {
-//            menu();
-//            Scanner sc = new Scanner(System.in);
-//            choice = sc.nextInt();
-//
-//            switch (choice) {
-//                case 1 -> addUser();
-//                case 2 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    deleteUser(userId);
-//                }
-//                case 3 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    getUserDetails(userId);
-//                }
-//                case 4 -> addProperty();
-//                case 5 -> {
-//                    System.out.print("Enter Property ID: ");
-//                    propertyId = sc.nextInt();
-//                    deleteProperty(propertyId);
-//                }
-//                case 6 -> {
-//                    System.out.print("Enter Property ID: ");
-//                    propertyId = sc.nextInt();
-//                    getPropertyDetails(propertyId);
-//                }
-//                case 7 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    System.out.print("Enter Property ID: ");
-//                    propertyId = sc.nextInt();
-//                    addBooking(userId, propertyId);
-//                }
-//                case 8 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    getUserBooking(userId);
-//                }
-//                case 9 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    System.out.print("Enter Property ID: ");
-//                    propertyId = sc.nextInt();
-//                    getBookingCost(userId, propertyId);
-//                }
-//                case 10 -> listUsers();
-//                case 11 -> listProperties();
-//                case 12 -> exit();
-//
-//                case 13 -> {
-//                    System.out.print("Enter User ID: ");
-//                    userId = sc.nextInt();
-//                    System.out.println(getDiscountForUser(userId));
-//                }
-//                case 14 -> {
-//                    System.out.print("Enter Property ID: ");
-//                    propertyId = sc.nextInt();
-//                    System.out.print("Enter Inspection: ");
-//                    // clear buffer
-//                    sc.nextLine();
-//                    String inspection = sc.nextLine();
-//                    addInspectionToProperty(propertyId, inspection);
-//                }
-//                case 15 -> {
-//                    System.out.print("Enter Property ID1: ");
-//                    p1 = sc.nextInt();
-//                    System.out.print("Enter Property ID2: ");
-//                    p2 = sc.nextInt();
-//                    comparePropertyPricesPerDay(p1,p2);
-//                }
-//
-//                default -> System.out.println("Invalid choice");
+//                myframe.users = add.getUsers();
+//                myframe.setVisible(true);
+//                System.out.println(myframe.users);
 //            }
+//        });
 //
-//        }while (choice != 12) ;
-    }
+//        DeleteUser delete = new DeleteUser(users);
+//        delete.setMainframe(myframe);
+//        delete.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosed(WindowEvent e) {
+//
+//                myframe.setVisible(true);
+//                System.out.println(myframe.users);
+//
+//            }
+//        });
 
+        // now lets test add property
+        AddPropertyPage add = new AddPropertyPage();
+        add.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                myframe.setVisible(true);
+            }
+
+
+    });
+    }
 
     /**
      * This function is used to display the menu of the CLI application
@@ -169,8 +118,7 @@ public class BASIC extends JFrame{
     public static void menu(){
 
         System.out.println("\n----MENU----");
-        System.out.println("1. Add User");
-        System.out.println("2. Delete User");
+
         System.out.println("3. Get User Details");
         System.out.println("4. Add Property");
         System.out.println("5. Delete Property");
@@ -199,70 +147,6 @@ public class BASIC extends JFrame{
      * @see Customer
      */
     public static void addUser(){
-
-        int id, choice, level;
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\n--------ADD USER--------\n");
-        // check if user already exists
-        do {
-            System.out.print("Enter User ID: ");
-            id = sc.nextInt();
-        }while(checkUserExists(id));
-
-        // ask for the type of user
-        do {
-            System.out.print("Which User do you want to add? " + "\n" + "1. Host or 2. Customer: ");
-            choice = sc.nextInt();
-        }while(choice != 1 && choice != 2);
-
-        if (choice == 1) {
-            System.out.print("Enter the taxNumber for the Host: ");
-            double taxNumber = sc.nextDouble();
-            users.add(new Host(id, taxNumber));
-
-        }
-        else {
-
-            System.out.print("Enter preferred payment method of Customer (Cash or Card or Paypal): ");
-            String payment = sc.next();
-            do {
-
-                System.out.print("Select type of Customer " + "\n" + "1. Gold or 2. Standard: ");
-                choice = sc.nextInt();
-            }while (choice != 1 && choice != 2);
-
-            if (choice == 1) {
-                do{
-                    System.out.println("Enter the level of Gold Customer (1-3): ");
-                    level = sc.nextInt();
-                }while(level < 1 || level > 3);
-
-                users.add(new Gold(id, payment, level));
-            }
-            else {
-
-                users.add(new Standard(id, payment));
-            }
-        }
-
-        System.out.println("Add more details for the User: ");
-        System.out.print("Enter first name: ");
-        String firstName = sc.next();
-        System.out.print("Enter last name: ");
-        String lastName = sc.next();
-        System.out.print("Enter dob (dd/mm/yyyy): ");
-        String dob = sc.next();
-        Date a = getDate(dob, sc);
-
-        System.out.println("Enter registration date (dd/mm/yyyy): ");
-        Date b = getDate(sc.next(), sc);
-        //access the user object and add the details
-        users.get(users.size() - 1).setFirstName(firstName);
-        users.get(users.size() - 1).setLastName(lastName);
-        users.get(users.size() - 1).setDateOfBirth(a);
-        users.get(users.size() - 1).setRegistrationDate(b);
-        System.out.println("User added successfully");
 
     }
 
@@ -301,7 +185,7 @@ public class BASIC extends JFrame{
      * @param id This is the user id
      * @return true if user exists else false
      */
-    private static boolean checkUserExists(int id) {
+    static boolean checkUserExists(int id) {
         for (User user : users){
             if (user.getUserId() == id){
                 System.out.println("User already exists!\n");

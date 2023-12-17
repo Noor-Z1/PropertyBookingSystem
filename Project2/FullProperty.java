@@ -48,7 +48,7 @@ public class FullProperty extends Property {
         return propertySize;
     }
 
-    public void setPropertySize(int propertySize) {
+    public void setPropertySize(double propertySize) {
         this.propertySize = propertySize;
     }
 
