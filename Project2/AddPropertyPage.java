@@ -29,11 +29,6 @@ public class AddPropertyPage extends javax.swing.JFrame {
     private JLabel hostIdlabel;
 
     private Property property;
-    private BASIC mainframe;
-
-    public void setMainframe(BASIC mainframe) {
-        this.mainframe = mainframe;
-    }
 
     AddPropertyPage() {
 
@@ -106,7 +101,6 @@ public class AddPropertyPage extends javax.swing.JFrame {
 
             }
 
-
             // check which property to create and create it
             if (sharedButton.isSelected()) {
                 SharedProperty p = new SharedProperty();
@@ -130,7 +124,7 @@ public class AddPropertyPage extends javax.swing.JFrame {
 
             // before adding property to mainframe, need to check if host id exists
             int id = Integer.parseInt(hostIdEntry.getText());
-            if (!mainframe.checkUserExists(id)) {
+            if (!BASIC.checkUserExists(id)) {
                 JOptionPane.showMessageDialog(null, "Host ID does not exist, Redirecting to Add Host Page");
                 // redirect to add host page
                 AddHostPage addHostPage = new AddHostPage(id);
@@ -146,33 +140,26 @@ public class AddPropertyPage extends javax.swing.JFrame {
                         if (addHostPage.getHost() != null) {
                             property.setHost(addHostPage.getHost());
                             System.out.println(property);
+                            BASIC.properties.add(property);
+                            JOptionPane.showMessageDialog(null, "Property added successfully");
+                            dispose();
                         }
                         else {
-                            JOptionPane.showMessageDialog(null, "You did not add a host! Please add submit and add a host");
+                            JOptionPane.showMessageDialog(null, "You did not add a host! Please click submit and add a host");
                         }
                     }
                 });
-
-
-                return;
             }
             else{
-                property.setHost((Host) mainframe.users.get(id - 1));
-                mainframe.properties.add(property);
+                property.setHost((Host) (BASIC.getUser(id)));
+                BASIC.properties.add(property);
                 System.out.println(property);
                 JOptionPane.showMessageDialog(null, "Property added successfully");
                 dispose();
             }
-
-
-
-
-
         });
 
-
     }
-
 }
 
 

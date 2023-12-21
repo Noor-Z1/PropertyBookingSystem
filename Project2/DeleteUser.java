@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class DeleteUser extends JFrame {
 
-    private ArrayList<User> users;
     private JPanel deletePanel;
     private JLabel idLabel;
     private JTextField idField;
@@ -18,8 +17,7 @@ public class DeleteUser extends JFrame {
         this.mainframe = mainframe;
     }
 
-    DeleteUser(ArrayList<User> users) {
-        this.users = users;
+    DeleteUser() {
         setContentPane(deletePanel);
         setTitle("Delete User");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -43,13 +41,13 @@ public class DeleteUser extends JFrame {
             }
 
             int id = Integer.parseInt(idField.getText());
-            if (mainframe.checkUserExists(id)) {
-                mainframe.deleteUser(id);
+            if (BASIC.checkUserExists(id)) {
+                BASIC.deleteUser(id);
                 JOptionPane.showMessageDialog(null, "User deleted successfully");
                 dispose();
 
             } else {
-                JOptionPane.showMessageDialog(null, "User does not exist");
+                JOptionPane.showMessageDialog(null, "User does not exist, please try again!");
             }
 
 

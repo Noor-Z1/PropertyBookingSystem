@@ -143,8 +143,8 @@ abstract class Property implements Comparable<Property>, PropertyPrice{
      * @return the string representation of Property
      */
     public String toString() {
-        return "Property: propertyId is " + propertyId + ", noBedRooms are " +  noBedRooms + ", noRooms are " + noRooms + "," +
-                " city is " + city + ", pricePerDay is " + pricePerDay +"\n"+ host.toString() + ".";
+        return "Property: propertyId is " + this.propertyId + ", noBedRooms are " +  this.noBedRooms + ", noRooms are " + this.noRooms + "," +
+                " city is " + this.city + ", pricePerDay is " + this.pricePerDay +"\n"+ this.host.toString() + "\n" + "Inspections: " + this.Inspection + ".";
     }
 
 
