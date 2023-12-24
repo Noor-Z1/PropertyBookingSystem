@@ -98,7 +98,7 @@ abstract class User {
         return "User " +
                 "userId = " + userId + "\n" +
                 "dateOfBirth = " + dateOfBirth + "\n"+
-                "firstName = " + firstName +
+                "firstName = " + firstName + " " +
                 "lastName = " + lastName + "\n"+
                 "registrationDate = " + registrationDate + "\n";
     }

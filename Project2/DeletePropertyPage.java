@@ -39,6 +39,7 @@ public class DeletePropertyPage extends JFrame {
 
             // delete property
             BASIC.deleteProperty(Integer.parseInt(idField.getText()));
+            JOptionPane.showMessageDialog(null, "Property deleted successfully");
             dispose();
 
         });
