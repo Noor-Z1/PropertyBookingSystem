@@ -14,8 +14,8 @@ public class DeletePropertyPage extends JFrame {
         setTitle("Delete Property");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
         setVisible(true);
+        setSize(200, 150);
 
         confirm.addActionListener(e -> {
             // check if something is entered

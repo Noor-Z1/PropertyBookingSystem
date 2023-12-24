@@ -43,7 +43,9 @@ public class AddPropertyPage extends javax.swing.JFrame {
         sizeEntry.setVisible(false);
         pane.setVisible(true);
         setVisible(true);
-        pack();
+        setSize(300, 500);
+
+
         fullButton.addActionListener(e -> {
             sizeLabel.setVisible(true);
             sizeEntry.setVisible(true);
@@ -90,8 +92,11 @@ public class AddPropertyPage extends javax.swing.JFrame {
             }
 
             // check if city is a string
-
-
+            String city = cityEntry.getText();
+            if (!city.matches("^[A-Za-z ]+$")) {
+                JOptionPane.showMessageDialog(null, "Please enter a valid city name");
+                return;
+            }
 
             // check if price is a double
             try {
@@ -149,8 +154,9 @@ public class AddPropertyPage extends javax.swing.JFrame {
                         }
                     }
                 });
-            }
-            else{
+            } else if (!(BASIC.getUser(id) instanceof Host)) {
+                JOptionPane.showMessageDialog(null, "You added a Customer's Id instead! Try again!");
+            } else{
                 property.setHost((Host) (BASIC.getUser(id)));
                 BASIC.properties.add(property);
                 System.out.println(property);

@@ -62,6 +62,6 @@ public class Gold extends Customer {
      */
     @Override
     public String toString() {
-        return super.toString() + ", Customer Type: Gold" + " with goldLevel=" + goldLevel + "}";
+        return super.toString() + "Customer Type: Gold" + " with goldLevel = " + goldLevel + "\n";
     }
 }

@@ -56,7 +56,7 @@ public class AddCustomerPage extends JFrame {
         setTitle("Add Customer");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
+        setSize(300,400);
         setVisible(true);
 
 
@@ -84,7 +84,6 @@ public class AddCustomerPage extends JFrame {
 
 
         // add action listener to the submit button
-
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,12 +101,13 @@ public class AddCustomerPage extends JFrame {
                     return;
                 }
 
-                // validate the inputs
-                if (!nameEntry.getText().matches("[a-zA-Z]+")) {
+                // validate the inputs here
+                // name and last name can have spaces in between
+                if (!nameEntry.getText().matches("^[A-Za-z ]+$")) {
                     JOptionPane.showMessageDialog(null, "Invalid first name");
                     return;
                 }
-                if (!lastNameEntry.getText().matches("[a-zA-Z]+")) {
+                if (!lastNameEntry.getText().matches("^[A-Za-z ]+$")) {
                     JOptionPane.showMessageDialog(null, "Invalid last name");
                     return;
                 }
@@ -119,7 +119,7 @@ public class AddCustomerPage extends JFrame {
                     JOptionPane.showMessageDialog(null, "Invalid registration date");
                     return;
                 }
-                if (!paymentEntry.getText().matches("[a-zA-Z]+")) {
+                if (!paymentEntry.getText().matches("^[A-Za-z ]+$")) {
                     JOptionPane.showMessageDialog(null, "Invalid payment");
                     return;
                 }
@@ -127,10 +127,7 @@ public class AddCustomerPage extends JFrame {
                 // check whether to create standard or gold customer
                 if (goldRadioButton.isSelected()) {
                     if (op1.isSelected()) {
-
                         customer = new Gold(id, paymentMethod.getText(), 1);
-
-
                     } else if (op2.isSelected()) {
                         customer = new Gold(id, paymentMethod.getText(), 2);
                     } else if (op3.isSelected()) {
@@ -144,6 +141,7 @@ public class AddCustomerPage extends JFrame {
                 customer.setLastName(lastNameEntry.getText());
                 customer.setDateOfBirth(getDate(dobEntry.getText()));
                 customer.setRegistrationDate(getDate(regDateEntry.getText()));
+                customer.setPreferredPaymentMethod(paymentMethod.getText());
 
                 addUserPage.getUsers().add(customer);
                 JOptionPane.showMessageDialog(null, "Customer added successfully");

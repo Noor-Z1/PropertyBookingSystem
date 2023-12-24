@@ -39,7 +39,7 @@
         </constraints>
         <properties>
           <background color="-16777216"/>
-          <foreground color="-1719643"/>
+          <foreground color="-460801"/>
         </properties>
       </component>
       <component id="20d3b" class="javax.swing.JTextField" binding="idField2">
@@ -50,7 +50,7 @@
         </constraints>
         <properties>
           <background color="-16777216"/>
-          <foreground color="-1719643"/>
+          <foreground color="-460801"/>
         </properties>
       </component>
       <component id="e26ed" class="javax.swing.JTextArea" binding="comparisonText">
@@ -71,6 +71,7 @@
         </constraints>
         <properties>
           <background color="-16777216"/>
+          <foreground color="-460801"/>
           <text value="Enter"/>
         </properties>
       </component>

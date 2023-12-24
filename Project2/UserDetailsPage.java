@@ -14,11 +14,11 @@ public class UserDetailsPage extends JFrame {
     private JScrollPane scroll;
 
     public UserDetailsPage() {
-        setContentPane(panel1);
+        setContentPane(scroll);
         setTitle("User Details");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
+        setSize(400, 300);
         setVisible(true);
 
         enterButton.addActionListener(e -> {

@@ -42,7 +42,7 @@ public class AddInspectiontoPropertyPage extends JFrame {
             }
 
             // check if a string message which can have spaces is entered in the inspectionField
-            if (!inspectionField.getText().matches("[a-zA-Z0-9 ]+")) {
+            if (!inspectionField.getText().matches("^[a-zA-Z0-9 ]*$")) {
                 JOptionPane.showMessageDialog(null, "Please enter a string message");
                 return;
             }

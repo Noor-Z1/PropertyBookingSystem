@@ -1,4 +1,8 @@
 package BASIC.Project2;
 
-public class ListPropertiesPage {
+import javax.swing.*;
+
+public class ListPropertiesPage extends JFrame {
+
+
 }

@@ -1,12 +1,9 @@
 package BASIC.Project2;
 
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.io.*;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,84 +24,274 @@ public class BASIC extends JFrame {
     private JPanel mainPanel;
     private JPanel menuPanel;
     private JMenuBar mb;
-    private JTextArea welcomeToBedAndTextArea;
-    private JMenu m;
+    private JList<String> menuList;
+    private JLabel welcomeLabel;
+    private JScrollPane mainPane;
+    private JButton selectButton;
     private JFileChooser fileNavi;
 
+    public JButton getSelectButton() {
+        return selectButton;
+    }
+
     BASIC() {
-        m = new JMenu("File");
-        m.setBackground(Color.BLACK);
-        m.setForeground(Color.pink);
-        fileNavi = new JFileChooser();
+
+        JMenu m1 = new JMenu("File");
         JMenuItem load = new JMenuItem("Load Data");
         JMenuItem save = new JMenuItem("Save Data");
+        m1.add(load);
+        m1.add(save);
+        m1.setBackground(Color.BLACK);
+
         load.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // want to use JFileChooser
+                File selectedFiles[] = showFileChooser();
+                if (selectedFiles == null) {
+                    return;
+                }
+                loadData(selectedFiles);
             }
         });
 
-        m.add(load);
-        m.add(save);
-        mb.add(m);
-        mb.add(new JMenu("Help"));
-        setContentPane(mainPanel);
+        save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveData();
+            }
+        });
+
+        JMenu m2 = new JMenu("Help");
+        m2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                String msg = "Welcome to our Property Booking System. \n" +
+                        "Here you can add users, properties, and bookings. \n" +
+                        "You can also get details of a user, property, or booking. \n" +
+                        "Note that if you want to load your previous data, \n" +
+                        "select Load Data from the File menu. \n" +
+                        "Also, if you want to save your data, \n" +
+                        "select Save Data from the File menu. \n" +
+                        "Have fun!";
+                JOptionPane.showMessageDialog(null, msg, "Help", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+
+        JMenu m3 = new JMenu("About");
+        m3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, "A Property Booking System \nDeveloped by Noor Ul Zain \nVersion 1.0", "About", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JMenu m4 = new JMenu("Useful Info");
+        m4.addMouseListener(new MouseAdapter() {
+
+            String msg = "If you accidentally close the application, \n" +
+                    "we will automatically save your data, in case you want to load it later.\n" +
+                    "Thank you for using our service. \n";
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JOptionPane.showMessageDialog(null, msg, "Useful Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        });
+
+        // add things to JList
+        menuList.setListData(new String[]{
+                "Add User",
+                "Delete User",
+                "Get User Details",
+                "Add Property",
+                "Delete Property",
+                "Get Property Details",
+                "Add Booking",
+                "Get Booking Cost",
+                "Get User Booking",
+                "List Users",
+                "List Properties",
+                "Get Discount for User",
+                "Add Inspection to Property",
+                "Compare Property Prices (per day)",
+                "Exit"});
+        menuList.setForeground(Color.white);
+        menuList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        menuList.setSelectedIndex(0);
+
+        mb.setBackground(Color.WHITE);
+        mb.setForeground(Color.pink);
+        mb.add(m1);
+        mb.add(m2);
+        mb.add(m3);
+        mb.add(m4);
+        setContentPane(mainPane);
         setTitle("Bed and Breafast");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
+        setSize(500, 400);
+        setJMenuBar(mb);
         setVisible(true);
 
     }
 
-    /**
-     * This function is the main function/entry point of the BASIC class
-     * It is where the CLI application is executed
-     * and the management system is accessed
-     *
-     * @param args: command line arguments
-     */
+    private File[] showFileChooser() {
+        JFileChooser fileChooser = new JFileChooser();
+
+        // Enable multiple file selection
+        fileChooser.setMultiSelectionEnabled(true);
+
+        // Show the file chooser dialog and get the result
+        int result = fileChooser.showOpenDialog(this);
+
+        // Check if the user selected a file
+        if (result == JFileChooser.APPROVE_OPTION) {
+            // Get the selected file
+            File[] selectedFiles = fileChooser.getSelectedFiles();
+            return selectedFiles;
+        }
+        return null;
+    }
+
+
     public static void main(String[] args) {
         BASIC myframe = new BASIC();
-        users.add(new Host(1, 22));
-        myframe.setVisible(false);
-
-
-//        AddUserPage add = new AddUserPage();
-//        add.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent e) {
-//
-//                myframe.users = add.getUsers();
-//                myframe.setVisible(true);
-//                System.out.println(myframe.users);
-//            }
-//        });
-//
-//        DeleteUser delete = new DeleteUser(users);
-//        delete.setMainframe(myframe);
-//        delete.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosed(WindowEvent e) {
-//
-//                myframe.setVisible(true);
-//                System.out.println(myframe.users);
-//
-//            }
-//        });
-
-        // now lets test add property
-        AddPropertyPage add = new AddPropertyPage();
-        add.addWindowListener(new WindowAdapter() {
+        myframe.getSelectButton().addActionListener(new ActionListener() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                myframe.setVisible(true);
-                System.out.println(myframe.properties);
+            public void actionPerformed(ActionEvent e) {
+                myframe.setVisible(false);
+
+                if (myframe.menuList.getSelectedIndex() == 0) {
+                    AddUserPage nextPage = new AddUserPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                            System.out.println(users); // for testing
+                        }
+                    });
+
+                } else if (myframe.menuList.getSelectedIndex() == 1) {
+                    DeleteUser nextPage = new DeleteUser();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                            System.out.println(users);  // for testing
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 2) {
+                    UserDetailsPage nextPage = new UserDetailsPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 3) {
+                    AddPropertyPage nextPage = new AddPropertyPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                            System.out.println(properties);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 4) {
+                    DeletePropertyPage nextPage = new DeletePropertyPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                            System.out.println(properties);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 5) {
+                    PropertyDetailsPage nextPage = new PropertyDetailsPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+
+                } else if (myframe.menuList.getSelectedIndex() == 6) {
+                    AddBookingPage nextPage = new AddBookingPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 7) {
+                    GetBookingCostPage nextPage = new GetBookingCostPage();
+
+                } else if (myframe.menuList.getSelectedIndex() == 8) {
+                    GetUserBookingPage nextPage = new GetUserBookingPage();
+                } else if (myframe.menuList.getSelectedIndex() == 9) {
+                    ListUsersPage nextPage = new ListUsersPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 10) {
+                    ListPropertiesPage nextPage = new ListPropertiesPage();
+                } else if (myframe.menuList.getSelectedIndex() == 11) {
+                    GetDiscountForUserPage nextPage = new GetDiscountForUserPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 12) {
+                    AddInspectiontoPropertyPage nextPage = new AddInspectiontoPropertyPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 13) {
+                    ComparePropertyPricesPage nextPage = new ComparePropertyPricesPage();
+                    nextPage.addWindowListener(new WindowAdapter() {
+                        @Override
+                        public void windowClosed(WindowEvent e) {
+                            myframe.setVisible(true);
+                        }
+                    });
+                } else if (myframe.menuList.getSelectedIndex() == 14) {
+                    System.exit(0);
+                }
+
+            }
+        });
+
+        myframe.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int choice = JOptionPane.showConfirmDialog(null,
+                        "Do you want to save your data before closing?",
+                        "Save Data",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    // Save data here or call a method to handle data saving
+                    saveData();
+                    // Close the frame
+                }
             }
 
         });
+
     }
+
 
 
     public static void setUsers(ArrayList<User> users) {
@@ -132,40 +319,242 @@ public class BASIC extends JFrame {
         return null;
     }
 
-    public static void menu() {
 
-        System.out.println("\n----MENU----");
+    public static void loadData(File[] selectedFiles) {
+        // load data from selected files
+        for (File file : selectedFiles) {
+            // your code to load data from each file goes here
+            if (file.getName().equals("gold.dat")) {
+                loadGoldData(file);
+            } else if (file.getName().equals("standard.dat")) {
+                loadStandardData(file);
+            } else if (file.getName().equals("host.dat")) {
+                loadHostData(file);
+            } else if (file.getName().equals("sharedProperty.dat")) {
+                loadSharedPropertyData(file);
+            } else if (file.getName().equals("fullProperty.dat")) {
+                loadFullPropertyData(file);
+            }
+        }
+    }
 
-        System.out.println("3. Get User Details");
-        System.out.println("5. Delete Property");
-        System.out.println("6. Get Property Details");
-        System.out.println("7. Add Booking");
-        System.out.println("8. Get User Booking");
-        System.out.println("9. Get Booking Cost");
-        System.out.println("10. List Users");
-        System.out.println("11. List Properties");
-        System.out.println("12. Exit");
+    private static void loadStandardData(File file) {
+        // want to use DataInputStream
+        try {
+            // Create DataInputStream object
+            DataInputStream dinput = new DataInputStream(new FileInputStream(file));
 
+            try {
+                while ((dinput.available() > 0)) {
 
-        System.out.println("13. Get Discount");
-        System.out.println("14. Add Inspection to Property");
-        System.out.println("15. Compare Property Prices (per day)");
-        System.out.print("Enter your choice: ");
+                    int userId = dinput.readInt();
+                    String dateOfBirth = dinput.readUTF();
+                    String firstName = dinput.readUTF();
+                    String lastName = dinput.readUTF();
+                    String registrationDate = dinput.readUTF();
+                    String preferredPaymentMethod = dinput.readUTF();
+
+                    Standard s = new Standard(userId, preferredPaymentMethod);
+                    s.setDateOfBirth(getDate(dateOfBirth, new Scanner(System.in)));
+                    s.setFirstName(firstName);
+                    s.setLastName(lastName);
+                    s.setRegistrationDate(getDate(registrationDate, new Scanner(System.in)));
+                    users.add(s);
+
+                    dinput.readUTF();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
     }
 
 
-    /**
-     * This function is used to add a user object to the static users list of the BASIC class
-     * A user can be either Host or Customer
-     * Necessary details are requested from the caller
-     *
-     * @see Host
-     * @see Customer
-     */
-    private static void addUser() {
+
+
+    private static void loadGoldData(File file) {
+        try {
+            // Create DataInputStream object
+            DataInputStream dinput = new DataInputStream(new FileInputStream(file));
+
+            try {
+                while ((dinput.available() > 0)) {
+
+                    int userId = dinput.readInt();
+                    String dateOfBirth = dinput.readUTF();
+                    String firstName = dinput.readUTF();
+                    String lastName = dinput.readUTF();
+                    String registrationDate = dinput.readUTF();
+                    String preferredPaymentMethod = dinput.readUTF();
+                    int goldlevel = dinput.readInt();
+
+                    Gold s = new Gold(userId, preferredPaymentMethod, goldlevel);
+                    s.setDateOfBirth(getDate(dateOfBirth, new Scanner(System.in)));
+                    s.setFirstName(firstName);
+                    s.setLastName(lastName);
+                    s.setRegistrationDate(getDate(registrationDate, new Scanner(System.in)));
+                    s.setGoldLevel(goldlevel);
+                    users.add(s);
+
+                    dinput.readUTF();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
 
     }
+
+    private static void loadHostData(File file) {
+        try {
+            // Create DataInputStream object
+            DataInputStream dinput = new DataInputStream(new FileInputStream(file));
+
+            try {
+                while ((dinput.available() > 0)) {
+
+                    int userId = dinput.readInt();
+                    String dateOfBirth = dinput.readUTF();
+                    String firstName = dinput.readUTF();
+                    String lastName = dinput.readUTF();
+                    String registrationDate = dinput.readUTF();
+                    Double taxNumber = dinput.readDouble();
+
+                    Host s = new Host(userId, taxNumber);
+                    s.setDateOfBirth(getDate(dateOfBirth, new Scanner(System.in)));
+                    s.setFirstName(firstName);
+                    s.setLastName(lastName);
+                    s.setRegistrationDate(getDate(registrationDate, new Scanner(System.in)));
+                    users.add(s);
+
+                    dinput.readUTF();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+
+    }
+
+    private static void loadSharedPropertyData(File file) {
+    }
+    private static void loadFullPropertyData(File file) {
+    }
+
+
+
+    public static void saveData() {
+        File f1 = new File("gold.dat");
+        File f2 = new File("standard.dat");
+        File f3 = new File("host.dat");
+        File f4 = new File("sharedProperty.dat");
+        File f5 = new File("fullProperty.dat");
+
+        String dateFormatPattern = "dd/MM/yyyy";
+
+        // Create a SimpleDateFormat object with the specified pattern
+        SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatPattern);
+
+
+        // save data to selected files using DataOutputStream
+        try {
+            // Create DataOutputStream objects for each file
+            DataOutputStream dos1 = new DataOutputStream(new FileOutputStream(f1));
+            DataOutputStream dos2 = new DataOutputStream(new FileOutputStream(f2));
+            DataOutputStream dos3 = new DataOutputStream(new FileOutputStream(f3));
+            DataOutputStream dos4 = new DataOutputStream(new FileOutputStream(f4));
+            DataOutputStream dos5 = new DataOutputStream(new FileOutputStream(f5));
+
+
+            for (User user : users) {
+                if (user instanceof Gold) {
+                    dos1.writeInt(user.getUserId());
+                    dos1.writeUTF(dateFormat.format(user.getDateOfBirth()));
+                    dos1.writeUTF(user.getFirstName());
+                    dos1.writeUTF(user.getLastName());
+                    dos1.writeUTF(dateFormat.format(user.getRegistrationDate()));
+                    dos1.writeUTF(((Gold) user).getPreferredPaymentMethod());
+                    dos1.writeInt(((Gold) user).getGoldLevel());
+                    dos1.writeUTF("\n");
+                } else if (user instanceof Standard) {
+                    dos2.writeInt(user.getUserId());
+                    dos2.writeUTF(dateFormat.format(user.getDateOfBirth()));
+                    dos2.writeUTF(user.getFirstName());
+                    dos2.writeUTF(user.getLastName());
+                    dos2.writeUTF(dateFormat.format(user.getRegistrationDate()));
+                    dos2.writeUTF(((Standard) user).getPreferredPaymentMethod());
+                    dos2.writeUTF("\n");
+                } else if (user instanceof Host) {
+                    dos3.writeInt(user.getUserId());
+                    dos3.writeUTF(dateFormat.format(user.getDateOfBirth()));
+                    dos3.writeUTF(user.getFirstName());
+                    dos3.writeUTF(user.getLastName());
+                    dos3.writeUTF(dateFormat.format(user.getRegistrationDate()));
+                    dos3.writeDouble(((Host) user).getTaxNumber());
+                    dos3.writeUTF("\n");
+                }
+            }
+
+            for (Property property : properties) {
+                if (property instanceof SharedProperty) {
+                    dos4.writeInt(property.getPropertyId());
+                    dos4.writeInt(property.getNoBedRooms());
+                    dos4.writeInt(property.getNoRooms());
+                    dos4.writeUTF(property.getCity());
+                    dos4.writeDouble(property.getPricePerDay());
+
+                    Host h = property.getHost();
+                    dos4.writeInt(h.getUserId());
+                    dos4.writeUTF(dateFormat.format(h.getDateOfBirth()));
+                    dos4.writeUTF(h.getFirstName());
+                    dos4.writeUTF(h.getLastName());
+                    dos4.writeUTF(dateFormat.format(h.getRegistrationDate()));
+                    dos4.writeDouble(h.getTaxNumber());
+                    dos4.writeUTF("\n");
+                } else if (property instanceof FullProperty) {
+                    dos5.writeInt(property.getPropertyId());
+                    dos5.writeInt(property.getNoBedRooms());
+                    dos5.writeInt(property.getNoRooms());
+                    dos5.writeUTF(property.getCity());
+                    dos5.writeDouble(property.getPricePerDay());
+                    dos5.writeDouble(((FullProperty) property).getPropertySize());
+
+                    Host h = property.getHost();
+                    dos5.writeInt(h.getUserId());
+                    dos5.writeUTF(dateFormat.format(h.getDateOfBirth()));
+                    dos5.writeUTF(h.getFirstName());
+                    dos5.writeUTF(h.getLastName());
+                    dos5.writeUTF(dateFormat.format(h.getRegistrationDate()));
+                    dos5.writeDouble(h.getTaxNumber());
+                    dos5.writeUTF("\n");
+                }
+            }
+
+            System.out.println("Data saved successfully.");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
+    }
+
+
+
 
     /**
      * This is an auxiliary function used to parse the date
@@ -189,8 +578,6 @@ public class BASIC extends JFrame {
                 System.out.println("\nInvalid date format");
                 flag = true;
                 System.out.println("Try again");
-                System.out.print("Enter dob (dd/mm/yyyy): ");
-                dateStr = sc.next();
             }
 
         } while (flag);
@@ -423,21 +810,17 @@ public class BASIC extends JFrame {
      *
      * @param propertyId This is the property id
      */
-    public static void getPropertyDetails(int propertyId) {
+    public static String getPropertyDetails(int propertyId) {
 
         int found = 0;
 
         System.out.println("\n----GET PROPERTY DETAILS----\n");
         for (Property property : properties) {
             if (property.getPropertyId() == propertyId) {
-                System.out.println(property);
-                found = 1;
-                break;
+                return property.toString();
             }
         }
-        if (found == 0) {
-            System.out.println("This Property does not exist!");
-        }
+        return "Property not found";
     }
 
 
@@ -447,7 +830,7 @@ public class BASIC extends JFrame {
      * @param userId     This is the user id
      * @param propertyId This is the property id
      */
-    public static void addBooking(int userId, int propertyId) {
+    public static void addBooking(int userId, int propertyId, String startDate, String endDate) {
 
         // first we check if the user exists
         // then we check if the property exists
@@ -477,11 +860,6 @@ public class BASIC extends JFrame {
             if (!flag) {
                 System.out.println("Property not found");
             } else {
-                System.out.println("Please add booking details");
-                System.out.println("Enter start date (dd/mm/yyyy): ");
-                String startDate = sc.next();
-                System.out.println("Enter end date (dd/mm/yyyy): ");
-                String endDate = sc.next();
                 // parse dates to a Date format
                 Date a = getDate(startDate, sc);
                 Date b = getDate(endDate, sc);
@@ -490,8 +868,8 @@ public class BASIC extends JFrame {
                 System.out.println("Booking added successfully");
             }
         }
-
     }
+
 
     /**
      * This function is used to display the bookings of a user
@@ -499,7 +877,7 @@ public class BASIC extends JFrame {
      *
      * @param userId This is the user id
      */
-    public static void getUserBooking(int userId) {
+    public static String getUserBooking(int userId) {
 
         boolean found = false;
 
@@ -513,20 +891,20 @@ public class BASIC extends JFrame {
             }
         }
 
+        String msg = "";
         if (!found) {
-            System.out.println("User does not exist, Try again!");
+            msg += "User does not exist, Try again!";
         } else if (((Customer) users.get(index)).getBookings().isEmpty()) {
-            System.out.println("User has no bookings!");
+            msg += "User has no bookings!";
         } else {
             System.out.println("\n-------User bookings--------\n");
             Customer u = (Customer) users.get(index);
             for (int i = 0; i < u.getBookings().size(); i++) {
-                System.out.println(u.getBookings().get(i).getStartDate() + " till " + u.getBookings().get(i).getEndDate());
-                System.out.println("For the " + u.getBookings().get(i).getProperty());
-                System.out.println();
+                msg += u.getBookings().get(i).getStartDate() + " till " + u.getBookings().get(i).getEndDate() + "\n";
+                msg += "For the " + u.getBookings().get(i).getProperty();
             }
         }
-
+        return msg;
     }
 
     /**
@@ -536,15 +914,17 @@ public class BASIC extends JFrame {
      * @param userId     This is the user id
      * @param propertyId This is the property id
      */
-    public static void getBookingCost(int userId, int propertyId) {
+    public static String getBookingCost(int userId, int propertyId) {
         // first identify the booking object for a given user for a given property
 
         boolean found = false;
         boolean found2 = false;
 
+        String s = "";
 
         System.out.println("\n----GET BOOKING COST----\n");
         for (User user : users) {
+
             if (user.getUserId() == userId && user instanceof Customer) {
                 {
                     found = true;
@@ -552,12 +932,12 @@ public class BASIC extends JFrame {
                     for (int j = 0; j < u.getBookings().size(); j++) {
                         if (u.getBookings().get(j).getProperty().getPropertyId() == propertyId) {
                             found2 = true;
-                            System.out.println("\nFor the property of Id:  " + u.getBookings().get(j).getProperty().getPropertyId());
-                            System.out.println("Booking Start Date: " + u.getBookings().get(j).getStartDate());
-                            System.out.println("Booking End Date: " + u.getBookings().get(j).getEndDate());
+                            s += ("For the property of Id:  " + u.getBookings().get(j).getProperty().getPropertyId()) + "\n";
+                            s += "Booking Start Date: " + u.getBookings().get(j).getStartDate() + "\n";
+                            s += ("Booking End Date: " + u.getBookings().get(j).getEndDate()) + "\n";
                             double cost = u.getBookings().get(j).totalCost();
                             cost = cost - (cost * getDiscountForUser(userId));
-                            System.out.println("Total Cost: " + cost);
+                            s += "Total Cost: " + cost + "\n\n";
                         }
                     }
                 }
@@ -565,13 +945,7 @@ public class BASIC extends JFrame {
             }
         }
 
-        if (!found) {
-            System.out.println("User does not exist, Try again!");
-        }
-        if (!found2) {
-            System.out.println("Property does not exist, Try again!");
-        }
-
+        return s;
 
     }
 

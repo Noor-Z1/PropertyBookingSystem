@@ -95,12 +95,12 @@ abstract class User {
      * @return the string representation of the user.
      */
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", dateOfBirth=" + dateOfBirth +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", registrationDate=" + registrationDate ;
+        return "User " +
+                "userId = " + userId + "\n" +
+                "dateOfBirth = " + dateOfBirth + "\n"+
+                "firstName = " + firstName +
+                "lastName = " + lastName + "\n"+
+                "registrationDate = " + registrationDate + "\n";
     }
 
 }

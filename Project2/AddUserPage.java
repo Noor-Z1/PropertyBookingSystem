@@ -21,7 +21,6 @@ public class AddUserPage extends JFrame {
     private JRadioButton hostRadioButton;
     private JButton ExitButton;
     private static ArrayList<User> users = new ArrayList<>();
-    private BASIC mainframe;
 
     AddUserPage() {
         setContentPane(mainPanel);
@@ -31,7 +30,7 @@ public class AddUserPage extends JFrame {
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(customerRadioButton);
         buttonGroup.add(hostRadioButton);
-        pack();
+        setSize(200,200);
         setVisible(true);
 
         ExitButton.addActionListener(new ActionListener() {
@@ -39,7 +38,7 @@ public class AddUserPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (users!=null) {
-                    mainframe.setUsers(users);
+                    BASIC.setUsers(users);
                 }
                 dispose();
             }
@@ -57,13 +56,11 @@ public class AddUserPage extends JFrame {
                     JOptionPane.showMessageDialog(null, "Either Customer or Host should be selected!");
                 }
                 else {
-                    while (checkUserExists(Integer.parseInt(textField1.getText()))) {
+                    if (checkUserExists(Integer.parseInt(textField1.getText()))) {
                         JOptionPane.showMessageDialog(null, "User already exists! Try again");
-                        break;
                     }
 
                     if (!checkUserExists(Integer.parseInt(textField1.getText()))) {
-
 
                         // create new user or redirect to new page based on the option selected
                         int id = Integer.parseInt(textField1.getText());
@@ -77,7 +74,6 @@ public class AddUserPage extends JFrame {
                             window.addWindowListener(new WindowAdapter() {
                                 @Override
                                 public void windowClosed(WindowEvent e) {
-                                    // close this frame also when the other frame is closed
                                     setVisible(true);
                                 }
                             });
@@ -90,9 +86,7 @@ public class AddUserPage extends JFrame {
                             window.addWindowListener(new WindowAdapter() {
                                 @Override
                                 public void windowClosed(WindowEvent e) {
-                                    // close this frame also when the other frame is closed
                                     setVisible(true);
-                                    //System.out.println(users);
                                 }
                             });
                         }

@@ -14,8 +14,8 @@ public class GetDiscountForUserPage extends JFrame {
         setTitle("Get Discount");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
         setVisible(true);
+        setSize(200, 150);
 
         enterButton.addActionListener(e -> {
             // check if something is entered
@@ -40,7 +40,7 @@ public class GetDiscountForUserPage extends JFrame {
             // display discount
             double discount = BASIC.getDiscountForUser(Integer.parseInt(idField.getText()));
 
-            if (discount == 0) {
+            if (discount == 0 && BASIC.getUser(Integer.parseInt(idField.getText())) instanceof Host) {
                 JOptionPane.showMessageDialog(null, "User is not a customer! You entered a Host ID. Try again");
 
             } else {

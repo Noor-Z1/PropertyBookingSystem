@@ -35,7 +35,7 @@ public class AddHostPage extends JFrame{
         setTitle("Add Host");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
+        setSize(250,400);
         setVisible(true);
 
         submit.addActionListener(new ActionListener() {
@@ -48,11 +48,11 @@ public class AddHostPage extends JFrame{
                 }
 
                 // validate the inputs
-                if (!firstNameEntry.getText().matches("[a-zA-Z]+")) {
+                if (!firstNameEntry.getText().matches("^[A-Za-z ]+$")) {
                     JOptionPane.showMessageDialog(null, "Invalid first name");
                     return;
                 }
-                if (!lastNameEntry.getText().matches("[a-zA-Z]+")) {
+                if (!lastNameEntry.getText().matches("^[A-Za-z ]+$")) {
                     JOptionPane.showMessageDialog(null, "Invalid last name");
                     return;
                 }

@@ -11,19 +11,15 @@ public class DeleteUser extends JFrame {
     private JTextField idField;
     private JButton enter;
     private JPanel dP;
-    private BASIC mainframe;
 
-    public void setMainframe(BASIC mainframe) {
-        this.mainframe = mainframe;
-    }
 
     DeleteUser() {
         setContentPane(deletePanel);
         setTitle("Delete User");
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        pack();
         setVisible(true);
+        pack();
 
         enter.addActionListener(e -> {
 

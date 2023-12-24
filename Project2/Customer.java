@@ -77,7 +77,7 @@ abstract class Customer extends User {
      */
     @Override
     public String toString() {
-        return super.toString() + "\nCustomer with Preferred Payment Method: " + preferredPaymentMethod;
+        return super.toString() + "Customer with Preferred Payment Method: " + this.preferredPaymentMethod + "\n";
     }
 
 }

@@ -6,6 +6,7 @@
     </constraints>
     <properties>
       <background color="-16777216"/>
+      <horizontalScrollBarPolicy value="32"/>
       <verticalScrollBarPolicy value="22"/>
     </properties>
     <border type="none"/>
@@ -25,8 +26,8 @@
               </grid>
             </constraints>
             <properties>
-              <background color="-16777216"/>
-              <foreground color="-1719643"/>
+              <background color="-460801"/>
+              <foreground color="-16777216"/>
             </properties>
             <border type="none"/>
             <children>
@@ -61,7 +62,7 @@
                   </component>
                   <component id="b69bb" class="javax.swing.JTextField" binding="idField">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
