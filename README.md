@@ -1,4 +1,5 @@
-# A property booking system that allows customers/hosts to register
+# A property booking system
+allows customers/hosts to register
 and add/book properties
 
 
